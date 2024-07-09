@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travis - Data Scientist & BI Developer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-image: url('sketches.png');
+            background-repeat: repeat;
+            background-size: 200px 200px; /* Adjust based on your image size */
+            background-color: #f5f5f5; /* Light gray background color */
+        }
+
+        body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8); /* White overlay with 80% opacity */
+        z-index: -1;
+        }
+
+        .content {
+        position: relative;
+        z-index: 1;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        nav a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #6c5ce7;
+        }
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 50px 0;
+        }
+        .hero img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .hero img:hover{
+            transform: scale(1.1);
+        }
+
+
+
+        .hero-text {
+            max-width: 60%;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #6c5ce7;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 10px;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button:hover{
+            transform: translateY(2px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+
+        }
+        section {
+            margin: 50px 0;
+        }
+        .project {
+            margin-bottom: 30px;
+        }
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill {
+            background-color: #e0e0e0;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+
+        .name-container {
+        position: relative;
+        overflow: hidden;
+        display: inline-block;
+        }
+
+        .name-container h1 {
+        position: relative;
+        z-index: 1;
+        }
+
+        .name-container::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            to right, 
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        transform: rotate(30deg);
+        transition: transform 0.5s;
+        opacity: 0;
+        }
+
+        .name-container:hover::before {
+        transform: rotate(30deg) translate(150%, -150%);
+        opacity: 1;
+        transition: transform 0.5s, opacity 0.3s;
+        }
+
+</style>
+</head>
+<body>
+    <header>
+        <div class="name-container">
+            <h1>Travis John Villanueva</h1>
+        </div>
+            
+        <nav>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h2>Data Scientist, BI Developer, and a CPA</h2>
+            <p>Turning Data into Insights</p>
+            <p>I'm a Data Scientist and BI developer with a strong financial background. Passionate about uncovering meaningful patterns in complex datasets.</p>
+            <a href="#projects" class="cta-button">View Projects</a>
+            <a href="#contact" class="cta-button">Contact Me</a>
+        </div>
+        <img src="SalesPerson.png" alt="Travis">
+    </section>
+
+    <section id="about">
+
+        <h1>About Me</h1>
+    
+        <h3>Hey there! I'm Travis! 👋</h3>
+        
+        <p>So, you wanna know about me? Buckle up, 'cause here we go!</p>
+        
+        <h3>🔢 Data Detective</h3>
+        <p>You know that feeling when you're staring at a massive spreadsheet and everyone else is like, "Ugh, numbers"? Well, that's where I get excited! 😄 I'm totally that guy who sees an ocean of data and thinks, "Sweet! Let's dive in!" It's kinda like being a detective, but instead of magnifying glasses, I've got algorithms and charts.</p>
+        
+        <h3>♟️ Chess Enthusiast</h3>
+        <p>Here's the thing - I'm not just about crunching numbers. I'm on this wild journey to become a chess grandmaster too! 🏆 I know, I know, it sounds kinda random, but hear me out. Chess is all about strategy, right? Thinking ahead, spotting patterns, outsmarting your opponent. Sound familiar? Yep, it's pretty much what I do with data every day!</p>
+        
+        <h3>🚀 Tech Geek</h3>
+        <p>Oh, and don't even get me started on tech and automation! I'm like a kid in a candy store when it comes to new gadgets and code that makes life easier. Remember that scene in Iron Man where Tony Stark solves the whole quantum problem with AI? That wasn't just a cool movie moment for me - it was like, career goals, you know?</p>
+        
+        <h3>🤖 AI Advocate</h3>
+        <p>Speaking of AI, I'm all about using it to the max. Some people get all worried about AI taking over, but I'm like, "Bring it on!" If it helps us solve problems faster and make life better, why wouldn't we use it? It's not about being lazy, it's about being smart with our time and brainpower.</p>
+        
+        <h3>🎵 Frustrated Songwriter</h3>
+        <p>Now, here's a curveball for ya - I'm also a frustrated songwriter! Yep, you heard that right. When I'm not wrestling with algorithms or plotting my next chess move, I'm scribbling down lyrics and humming melodies. Sure, my songs might never top the charts (let's be real, they might never leave my bedroom), but hey, a guy can dream, right?</p>
+        
+        <h3>Let's Connect!</h3>
+        <p>So yeah, that's me in a nutshell. I'm the guy who gets excited about data, plays chess like it's a superpower, geeks out over new tech, isn't afraid to let AI be my sidekick, and occasionally serenades his computer with half-finished songs. If you're looking for someone to turn your data headaches into "Aha!" moments, or just want to chat about the latest in tech (or maybe challenge me to a chess game... or a songwriting contest? 😉), I'm your guy!</p>
+        
+        <p>Let's team up and show the world what happens when data meets creativity. Trust me, it's gonna be awesome! And who knows? Maybe we'll even set some data insights to music! 🚀📊🤖🎶</p>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project">
+            <h3>Project 1: Data Analysis of [Topic]</h3>
+            <p>Brief description of the project, technologies used, and key outcomes or insights.</p>
+            <a href="#">View Project</a>
+        </div>
+        <div class="project">
+            <h3>Project 2: Machine Learning Model for [Problem]</h3>
+            <p>Brief description of the project, technologies used, and key outcomes or insights.</p>
+            <a href="#">View Project</a>
+        </div>
+        <div class="project">
+            <h3>Project 3: Interactive Dashboard for [Company/Industry]</h3>
+            <p>Brief description of the project, technologies used, and key outcomes or insights.</p>
+            <a href="#">View Project</a>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Skills</h2>
+        <div class="skills-list">
+            <span class="skill">Python</span>
+            <span class="skill">R</span>
+            <span class="skill">SQL</span>
+            <span class="skill">Tableau</span>
+            <span class="skill">Power BI</span>
+            <span class="skill">Machine Learning</span>
+            <span class="skill">Data Visualization</span>
+            <span class="skill">Statistical Analysis</span>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>Get in touch for collaborations or opportunities.</p>
+        <a href="mailto:vtravisjohn@yahoo.com">vtravisjohn@yahoo.com</a>
+        <p>
+            <a href="https://www.linkedin.com/in/travis-john-v-47815b55/">LinkedIn</a> |
+            <a href="https://github.com/yourusername">GitHub</a>
+        </p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Travis Villanueva. All rights reserved.</p>
+    </footer>
+</body>
+</html>
