@@ -3,241 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travis - Data Scientist & BI Developer</title>
+    <title>Travis Villanueva - Interactive Resume</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-image: url('sketches.png');
-            background-repeat: repeat;
-            background-size: 200px 200px; /* Adjust based on your image size */
-            background-color: #f5f5f5; /* Light gray background color */
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
         }
-
-        body::before {
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(255, 255, 255, 0.8); /* White overlay with 80% opacity */
-        z-index: -1;
+        .timeline-item .timeline-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            padding: 0 1.5rem;
         }
-
-        .content {
-        position: relative;
-        z-index: 1;
+        .timeline-item.active .timeline-content {
+            max-height: 50rem; 
+            padding: 1.5rem 1.5rem;
         }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
+        .timeline-item .icon-plus {
+            transform: rotate(0deg);
+            transition: transform 0.3s ease-in-out;
         }
-        nav a {
-            margin-left: 20px;
-            text-decoration: none;
-            color: #6c5ce7;
+        .timeline-item.active .icon-plus {
+            transform: rotate(45deg);
         }
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 50px 0;
+        .no-print {
+             /* This class is used to hide the button in the web view before generating the text-based PDF */
         }
-        .hero img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .hero img:hover{
-            transform: scale(1.1);
-        }
-
-
-
-        .hero-text {
-            max-width: 60%;
-        }
-        .cta-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #6c5ce7;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-right: 10px;
-            transition: transform 0.1s ease, box-shadow 0.1s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .cta-button:hover{
-            transform: translateY(2px);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-
-        }
-        section {
-            margin: 50px 0;
-        }
-        .project {
-            margin-bottom: 30px;
-        }
-        .skills-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .skill {
-            background-color: #e0e0e0;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-
-
-        .name-container {
-        position: relative;
-        overflow: hidden;
-        display: inline-block;
-        }
-
-        .name-container h1 {
-        position: relative;
-        z-index: 1;
-        }
-
-        .name-container::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(
-            to right, 
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.3) 50%,
-            rgba(255, 255, 255, 0) 100%
-        );
-        transform: rotate(30deg);
-        transition: transform 0.5s;
-        opacity: 0;
-        }
-
-        .name-container:hover::before {
-        transform: rotate(30deg) translate(150%, -150%);
-        opacity: 1;
-        transition: transform 0.5s, opacity 0.3s;
-        }
-
-</style>
+    </style>
 </head>
-<body>
-    <header>
-        <div class="name-container">
-            <h1>Travis John Villanueva</h1>
-        </div>
-            
-        <nav>
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#skills">Skills</a>
-            <a href="#contact">Contact</a>
-        </nav>
-    </header>
+<body class="antialiased">
 
-    <section class="hero">
-        <div class="hero-text">
-            <h2>Data Scientist, BI Developer, and a CPA</h2>
-            <p>Turning Data into Insights</p>
-            <p>I'm a Data Scientist and BI developer with a strong financial background. Passionate about uncovering meaningful patterns in complex datasets.</p>
-            <a href="#projects" class="cta-button">View Projects</a>
-            <a href="#contact" class="cta-button">Contact Me</a>
-        </div>
-        <img src="SalesPerson.png" alt="Travis">
-    </section>
+    <div id="resume-content" class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-5xl bg-white shadow-lg my-8 rounded-lg">
 
-    <section id="about">
+        <!-- Header Section -->
+        <header class="text-center py-10 border-b border-gray-200 relative">
+            <button id="download-pdf" class="no-print absolute top-4 right-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center space-x-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+                <span>Download PDF</span>
+            </button>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 tracking-tight">Travis Villanueva</h1>
+            <div class="mt-6 flex justify-center items-center flex-wrap gap-x-6 gap-y-2 text-gray-600">
+                <span>Gables, NSW 2765</span>
+                <span class="hidden md:inline">|</span>
+                <span>0404 248 265</span>
+                <span class="hidden md:inline">|</span>
+                <a href="mailto:vtravisjohn@yahoo.com" class="hover:text-blue-600">vtravisjohn@yahoo.com</a>
+            </div>
+        </header>
 
-        <h1>About Me</h1>
-    
-        <h3>Hey there! I'm Travis! 👋</h3>
-        
-        <p>So, you wanna know about me? Buckle up, 'cause here we go!</p>
-        
-        <h3>🔢 Data Detective</h3>
-        <p>You know that feeling when you're staring at a massive spreadsheet and everyone else is like, "Ugh, numbers"? Well, that's where I get excited! 😄 I'm totally that guy who sees an ocean of data and thinks, "Sweet! Let's dive in!" It's kinda like being a detective, but instead of magnifying glasses, I've got algorithms and charts.</p>
-        
-        <h3>♟️ Chess Enthusiast</h3>
-        <p>Here's the thing - I'm not just about crunching numbers. I'm on this wild journey to become a chess grandmaster too! 🏆 I know, I know, it sounds kinda random, but hear me out. Chess is all about strategy, right? Thinking ahead, spotting patterns, outsmarting your opponent. Sound familiar? Yep, it's pretty much what I do with data every day!</p>
-        
-        <h3>🚀 Tech Geek</h3>
-        <p>Oh, and don't even get me started on tech and automation! I'm like a kid in a candy store when it comes to new gadgets and code that makes life easier. Remember that scene in Iron Man where Tony Stark solves the whole quantum problem with AI? That wasn't just a cool movie moment for me - it was like, career goals, you know?</p>
-        
-        <h3>🤖 AI Advocate</h3>
-        <p>Speaking of AI, I'm all about using it to the max. Some people get all worried about AI taking over, but I'm like, "Bring it on!" If it helps us solve problems faster and make life better, why wouldn't we use it? It's not about being lazy, it's about being smart with our time and brainpower.</p>
-        
-        <h3>🎵 Frustrated Songwriter</h3>
-        <p>Now, here's a curveball for ya - I'm also a frustrated songwriter! Yep, you heard that right. When I'm not wrestling with algorithms or plotting my next chess move, I'm scribbling down lyrics and humming melodies. Sure, my songs might never top the charts (let's be real, they might never leave my bedroom), but hey, a guy can dream, right?</p>
-        
-        <h3>Let's Connect!</h3>
-        <p>So yeah, that's me in a nutshell. I'm the guy who gets excited about data, plays chess like it's a superpower, geeks out over new tech, isn't afraid to let AI be my sidekick, and occasionally serenades his computer with half-finished songs. If you're looking for someone to turn your data headaches into "Aha!" moments, or just want to chat about the latest in tech (or maybe challenge me to a chess game... or a songwriting contest? 😉), I'm your guy!</p>
-        
-        <p>Let's team up and show the world what happens when data meets creativity. Trust me, it's gonna be awesome! And who knows? Maybe we'll even set some data insights to music! 🚀📊🤖🎶</p>
-    </section>
+        <!-- Professional Summary -->
+        <section id="summary" class="py-12 px-6">
+             <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Professional Summary</h2>
+             <p class="text-center text-gray-700 leading-relaxed">
+                A <strong>tech-savvy</strong> and commercially-focused analyst with a proven ability to generate actionable <strong>insights</strong> and drive business performance through strategic <strong>commercial partnering</strong>. With a strong <strong>analytical mindset</strong> and expertise in modern BI tools, I translate complex data into clear narratives that support senior leadership. This contemporary skillset is built upon a solid foundation in accounting and finance, including experience in <strong>3-way financial modeling</strong>, comprehensive <strong>budgeting and forecasting</strong> cycles, and board-level reporting.
+            </p>
+        </section>
 
-    <section id="projects">
-        <h2>Projects</h2>
-        <div class="project">
-            <h3>Project 1: Data Analysis of [Topic]</h3>
-            <p>Brief description of the project, technologies used, and key outcomes or insights.</p>
-            <a href="#">View Project</a>
-        </div>
-        <div class="project">
-            <h3>Project 2: Machine Learning Model for [Problem]</h3>
-            <p>Brief description of the project, technologies used, and key outcomes or insights.</p>
-            <a href="#">View Project</a>
-        </div>
-        <div class="project">
-            <h3>Project 3: Interactive Dashboard for [Company/Industry]</h3>
-            <p>Brief description of the project, technologies used, and key outcomes or insights.</p>
-            <a href="#">View Project</a>
-        </div>
-    </section>
+        <!-- Core Competencies -->
+        <section id="competencies" class="py-12 px-6 bg-gray-50 rounded-lg">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">Core Competencies</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Financial Planning & Analysis (FP&A):</strong> Expertise in 3-way financial modeling and variance analysis, underpinned by a CPA qualification.</div>
+                <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Budgeting & Forecasting:</strong> Experience managing and consolidating company-wide budgets and forecasts.</div>
+                <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Investment & Feasibility Analysis:</strong> Skilled in building models for investment evaluation, including IRR and scenario planning.</div>
+                <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Business Intelligence & Automation:</strong> Proficient in implementing BI tools (Power BI, Tableau) to enhance financial reporting.</div>
+                <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Stakeholder Management:</strong> Proven ability to act as a key business partner to the C-suite, JV stakeholders, and operational leaders.</div>
+                <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Data-Driven Decision Making:</strong> Leverages data science techniques to deliver deep insights and support strategic initiatives.</div>
+            </div>
+        </section>
 
-    <section id="skills">
-        <h2>Skills</h2>
-        <div class="skills-list">
-            <span class="skill">Python</span>
-            <span class="skill">R</span>
-            <span class="skill">SQL</span>
-            <span class="skill">Tableau</span>
-            <span class="skill">Power BI</span>
-            <span class="skill">Machine Learning</span>
-            <span class="skill">Data Visualization</span>
-            <span class="skill">Statistical Analysis</span>
-        </div>
-    </section>
+        <!-- Professional Experience -->
+        <section id="experience" class="py-12 px-6">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-10">Interactive Career Timeline</h2>
+            <div class="relative border-l-2 border-blue-200 ml-6">
+                <!-- Experience Data will be injected here by JS -->
+            </div>
+        </section>
 
-    <section id="contact">
-        <h2>Contact Me</h2>
-        <p>Get in touch for collaborations or opportunities.</p>
-        <a href="mailto:vtravisjohn@yahoo.com">vtravisjohn@yahoo.com</a>
-        <p>
-            <a href="https://www.linkedin.com/in/travis-john-v-47815b55/">LinkedIn</a> |
-            <a href="https://github.com/yourusername">GitHub</a>
-        </p>
-    </section>
+        <!-- Education & Certifications -->
+        <section id="education" class="py-12 px-6 bg-gray-50 rounded-lg">
+            <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">Education & Certifications</h2>
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Education</h3>
+                    <ul class="space-y-4 text-gray-700">
+                        <li><strong>Master of Data Science</strong><br>University of New South Wales (UNSW)</li>
+                        <li><strong>Master of Business Administration (MBA)</strong><br>Philippines</li>
+                        <li><strong>Bachelor of Science in Accountancy</strong><br>Philippines</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Certifications</h3>
+                    <ul class="space-y-3 text-gray-700 list-disc list-inside">
+                        <li>CPA Australia</li>
+                        <li>MCSA-Power BI</li>
+                        <li>MTA-SQL Database Fundamentals</li>
+                        <li>Alteryx Designer Core Certified</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
 
-    <footer>
-        <p>&copy; 2024 Travis Villanueva. All rights reserved.</p>
-    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            window.jspdf = window.jspdf.jsPDF;
+
+            const experienceData = [
+                { company: 'WooliesX', role: 'Senior BI Analyst', period: 'October 2021 – Present', achievements: ['Led high-impact BI projects to monitor performance, enhance marketing efficiency, and provide strategic insights for the retail giant.', 'Developed systems for monitoring resource usage and analyzing the financial impact of external market factors.', 'Acted as a key collaborator in data science groups to apply machine learning techniques to solve complex business problems.'] },
+                { company: 'Humm', role: 'Senior Finance & BI Analyst', period: 'May 2021 – October 2021', achievements: ["Led the finance team's BI requirements, developing key volume reporting dashboards using Power BI and SQL."] },
+                { company: 'Crop Smart', role: 'Data & Financial Analyst', period: 'March 2020 – May 2021', achievements: ['Partnered directly with the CEO on analytics, financial reporting, and process streamlining.', 'Introduced machine learning for forecasting and built a cloud data warehouse, generating significant cost savings.'] },
+                { company: 'Qantas', role: 'BI Consultant', period: 'September 2019 – January 2020', achievements: ['Specialized in automating financial reporting using Power BI, Essbase, and MDX for the Finance Systems Governance team.'] },
+                { company: 'Omnicom Media Group', role: 'BI Developer & Systems Accountant', period: 'Sep 2016 – Sep 2019', achievements: ['Developed BI solutions for financial analytics and automated month-end consolidation and variance analysis.'] },
+                { company: 'Schneider Electric', role: 'Senior Finance Analyst', period: 'January 2013 – December 2014', achievements: ['<strong>Key FP&A Role:</strong> Drove the <strong>budgeting and forecasting</strong> process for the business unit.', 'Acted as a key business partner to operational managers, providing financial insights to guide decision-making.', 'Represented the finance team in knowledge-sharing initiatives and innovation groups.'] },
+                { company: 'San Miguel Foods', role: 'Group Finance Analyst', period: 'November 2008 – December 2012', achievements: ['<strong>Lead for Budgeting & Forecasting:</strong> Built and managed a uniform budgeting system (VBA) used across all divisions, ensuring fluid consolidation and analysis.', 'Consolidated financial reports from multiple regional offices for month-end review.', 'Partnered with operations to track KPIs and prepared detailed monthly cost-to-produce reports.'] }
+            ];
+
+            const timelineContainer = document.querySelector('#experience .relative');
+            experienceData.forEach(item => {
+                const timelineItem = document.createElement('div');
+                timelineItem.className = 'mb-8 timeline-item';
+                timelineItem.innerHTML = `
+                    <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 mt-2 border-4 border-white flex items-center justify-center text-white font-bold">
+                        <span class="icon-plus text-2xl font-light leading-none">+</span>
+                    </div>
+                    <div class="ml-12 cursor-pointer bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+                        <h3 class="text-xl font-bold text-gray-800">${item.role}</h3>
+                        <p class="text-blue-600 font-medium">${item.company}</p>
+                        <p class="text-sm text-gray-500 mt-1">${item.period}</p>
+                    </div>
+                    <div class="ml-12 timeline-content bg-white rounded-b-lg shadow-md border-x border-b border-gray-100">
+                        <ul class="space-y-3 text-gray-700 list-disc list-inside">
+                            ${item.achievements.map(ach => `<li>${ach.replace(/<strong>/g, '').replace(/<\/strong>/g, '')}</li>`).join('')}
+                        </ul>
+                    </div>
+                `;
+                timelineContainer.appendChild(timelineItem);
+                timelineItem.querySelector('.cursor-pointer').addEventListener('click', () => {
+                    document.querySelectorAll('.timeline-item').forEach(el => {
+                        if (el !== timelineItem) el.classList.remove('active');
+                    });
+                    timelineItem.classList.toggle('active');
+                });
+            });
+
+            const downloadBtn = document.getElementById('download-pdf');
+            downloadBtn.addEventListener('click', () => {
+                const doc = new jspdf();
+                const pageHeight = doc.internal.pageSize.height;
+                const pageWidth = doc.internal.pageSize.width;
+                const margin = 15;
+                let yPos = margin;
+
+                function checkPageBreak(neededHeight) {
+                    if (yPos + neededHeight > pageHeight - margin) {
+                        doc.addPage();
+                        yPos = margin;
+                    }
+                }
+
+                // Header
+                doc.setFontSize(22).setFont('helvetica', 'bold');
+                doc.text('Travis Villanueva', pageWidth / 2, yPos, { align: 'center' });
+                yPos += 8;
+                doc.setFontSize(10).setFont('helvetica', 'normal');
+                doc.text('Gables, NSW 2765 | 0404 248 265 | vtravisjohn@yahoo.com', pageWidth / 2, yPos, { align: 'center' });
+                yPos += 10;
+                doc.setLineWidth(0.5).line(margin, yPos, pageWidth - margin, yPos);
+                yPos += 10;
+
+                // Professional Summary
+                doc.setFontSize(14).setFont('helvetica', 'bold');
+                doc.text('Professional Summary', margin, yPos);
+                yPos += 7;
+                doc.setFontSize(10).setFont('helvetica', 'normal');
+                const summaryText = 'A tech-savvy and commercially-focused analyst with a proven ability to generate actionable insights and drive business performance through strategic commercial partnering. With a strong analytical mindset and expertise in modern BI tools, I translate complex data into clear narratives that support senior leadership. This contemporary skillset is built upon a solid foundation in accounting and finance, including experience in 3-way financial modeling, comprehensive budgeting and forecasting cycles, and board-level reporting.';
+                const summaryLines = doc.splitTextToSize(summaryText, pageWidth - margin * 2);
+                checkPageBreak(summaryLines.length * 5);
+                doc.text(summaryLines, margin, yPos);
+                yPos += summaryLines.length * 5 + 5;
+
+                // Core Competencies
+                doc.setFontSize(14).setFont('helvetica', 'bold');
+                doc.text('Core Competencies', margin, yPos);
+                yPos += 7;
+                doc.setFontSize(10).setFont('helvetica', 'normal');
+                const competencies = [
+                    'Financial Planning & Analysis (FP&A): Expertise in 3-way financial modeling and variance analysis, underpinned by a CPA qualification.',
+                    'Budgeting & Forecasting: Experience managing and consolidating company-wide budgets and forecasts.',
+                    'Investment & Feasibility Analysis: Skilled in building models for investment evaluation, including IRR and scenario planning.',
+                    'Business Intelligence & Automation: Proficient in implementing BI tools (Power BI, Tableau) to enhance financial reporting.',
+                    'Stakeholder Management: Proven ability to act as a key business partner to the C-suite, JV stakeholders, and operational leaders.',
+                    'Data-Driven Decision Making: Leverages data science techniques to deliver deep insights and support strategic initiatives.'
+                ];
+                competencies.forEach(comp => {
+                    const compLines = doc.splitTextToSize(`• ${comp}`, pageWidth - margin * 2 - 5);
+                    checkPageBreak(compLines.length * 5);
+                    doc.text(compLines, margin + 5, yPos);
+                    yPos += compLines.length * 5;
+                });
+                yPos += 5;
+
+                // Professional Experience
+                doc.setFontSize(14).setFont('helvetica', 'bold');
+                doc.text('Professional Experience', margin, yPos);
+                yPos += 7;
+                experienceData.forEach(item => {
+                    checkPageBreak(20);
+                    doc.setFontSize(11).setFont('helvetica', 'bold');
+                    doc.text(`${item.role} | ${item.company}`, margin, yPos);
+                    doc.setFontSize(10).setFont('helvetica', 'italic');
+                    doc.text(item.period, pageWidth - margin, yPos, { align: 'right' });
+                    yPos += 6;
+                    doc.setFontSize(10).setFont('helvetica', 'normal');
+                    item.achievements.forEach(ach => {
+                        const cleanAch = ach.replace(/<strong>/g, '').replace(/<\/strong>/g, '');
+                        const achLines = doc.splitTextToSize(`• ${cleanAch}`, pageWidth - margin * 2 - 5);
+                        checkPageBreak(achLines.length * 5);
+                        doc.text(achLines, margin + 5, yPos);
+                        yPos += achLines.length * 5;
+                    });
+                    yPos += 4;
+                });
+                yPos += 5;
+
+                // Education & Certifications
+                checkPageBreak(40);
+                doc.setFontSize(14).setFont('helvetica', 'bold');
+                doc.text('Education & Certifications', margin, yPos);
+                yPos += 7;
+
+                doc.setFontSize(11).setFont('helvetica', 'bold');
+                doc.text('Education', margin, yPos);
+                yPos += 6;
+                doc.setFontSize(10).setFont('helvetica', 'normal');
+                doc.text('Master of Data Science - University of New South Wales (UNSW)', margin, yPos);
+                yPos += 5;
+                doc.text('Master of Business Administration (MBA) - Philippines', margin, yPos);
+                yPos += 5;
+                doc.text('Bachelor of Science in Accountancy - Philippines', margin, yPos);
+                yPos += 10;
+
+                doc.setFontSize(11).setFont('helvetica', 'bold');
+                doc.text('Certifications', margin, yPos);
+                yPos += 6;
+                doc.setFontSize(10).setFont('helvetica', 'normal');
+                const certs = ['CPA Australia', 'MCSA-Power BI', 'MTA-SQL Database Fundamentals', 'Alteryx Designer Core Certified'];
+                certs.forEach(cert => {
+                    doc.text(`• ${cert}`, margin + 5, yPos);
+                    yPos += 5;
+                });
+
+                doc.save('Travis_Villanueva_Resume.pdf');
+            });
+        });
+    </script>
 </body>
 </html>
