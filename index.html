@@ -1,270 +1,201 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-AU">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travis Villanueva - Interactive Resume</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-            color: #212529;
-        }
-        .timeline-item .timeline-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
-            padding: 0 1.5rem;
-        }
-        .timeline-item.active .timeline-content {
-            max-height: 50rem; 
-            padding: 1.5rem 1.5rem;
-        }
-        .timeline-item .icon-plus {
-            transform: rotate(0deg);
-            transition: transform 0.3s ease-in-out;
-        }
-        .timeline-item.active .icon-plus {
-            transform: rotate(45deg);
-        }
-        .no-print {
-             /* This class is used to hide the button in the web view before generating the text-based PDF */
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Travis John Villanueva | Data Scientist &amp; Senior BI Developer, AI Engineering | Sydney</title>
+<meta name="description" content="Travis John Villanueva: Sydney-based Senior BI Developer at WooliesX and UNSW Master of Data Science graduate, moving into AI engineering. BigQuery, dbt, Airflow, Tableau, Python, and LLM apps with tool calling and RAG. CPA.">
+<meta name="author" content="Travis John Villanueva">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Travis John Villanueva | Data, BI &amp; AI Engineering">
+<meta property="og:description" content="Senior BI Developer at WooliesX moving into AI engineering. Master of Data Science (UNSW), CPA. Sydney NSW.">
+<meta property="og:locale" content="en_AU">
+<link rel="canonical" href="https://travisjohn.github.io/">
+<meta property="og:url" content="https://travisjohn.github.io/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f172a">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%2338bdf8' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Person","name":"Travis John Villanueva","jobTitle":"Senior BI Developer","worksFor":{"@type":"Organization","name":"WooliesX (Woolworths Group)"},"address":{"@type":"PostalAddress","addressLocality":"Sydney","addressRegion":"NSW","addressCountry":"AU"},"email":"mailto:vtravisjohn@yahoo.com","alumniOf":"UNSW Sydney","sameAs":["https://www.linkedin.com/in/travis-john-v-47815b55","https://github.com/TravisJohn"]}
+</script>
 </head>
-<body class="antialiased">
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">Travis John Villanueva</a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="blog/">Blog</a></li>
+        <li><a href="#contact" class="btn-sm">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-    <div id="resume-content" class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-5xl bg-white shadow-lg my-8 rounded-lg">
-
-        <!-- Header Section -->
-        <header class="text-center py-10 border-b border-gray-200 relative">
-            <button id="download-pdf" class="no-print absolute top-4 right-4 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center space-x-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-                <span>Download PDF</span>
-            </button>
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 tracking-tight">Travis Villanueva</h1>
-            <div class="mt-6 flex justify-center items-center flex-wrap gap-x-6 gap-y-2 text-gray-600">
-                <span>Gables, NSW 2765</span>
-                <span class="hidden md:inline">|</span>
-                <span>0404 248 265</span>
-                <span class="hidden md:inline">|</span>
-                <a href="mailto:vtravisjohn@yahoo.com" class="hover:text-blue-600">vtravisjohn@yahoo.com</a>
-            </div>
-        </header>
-
-        <!-- Professional Summary -->
-        <section id="summary" class="py-12 px-6">
-             <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Professional Summary</h2>
-             <p class="text-center text-gray-700 leading-relaxed">
-                A <strong>tech-savvy</strong> and commercially-focused analyst with a proven ability to generate actionable <strong>insights</strong> and drive business performance through strategic <strong>commercial partnering</strong>. With a strong <strong>analytical mindset</strong> and expertise in modern BI tools, I translate complex data into clear narratives that support senior leadership. This contemporary skillset is built upon a solid foundation in accounting and finance, including experience in <strong>3-way financial modeling</strong>, comprehensive <strong>budgeting and forecasting</strong> cycles, and board-level reporting.
-            </p>
-        </section>
-
-        <!-- Core Competencies -->
-        <section id="competencies" class="py-12 px-6 bg-gray-50 rounded-lg">
-            <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">Core Competencies</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Financial Planning & Analysis (FP&A):</strong> Expertise in 3-way financial modeling and variance analysis, underpinned by a CPA qualification.</div>
-                <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Budgeting & Forecasting:</strong> Experience managing and consolidating company-wide budgets and forecasts.</div>
-                <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Investment & Feasibility Analysis:</strong> Skilled in building models for investment evaluation, including IRR and scenario planning.</div>
-                <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Business Intelligence & Automation:</strong> Proficient in implementing BI tools (Power BI, Tableau) to enhance financial reporting.</div>
-                <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Stakeholder Management:</strong> Proven ability to act as a key business partner to the C-suite, JV stakeholders, and operational leaders.</div>
-                <div class="bg-white p-4 rounded-lg shadow-sm"><strong>Data-Driven Decision Making:</strong> Leverages data science techniques to deliver deep insights and support strategic initiatives.</div>
-            </div>
-        </section>
-
-        <!-- Professional Experience -->
-        <section id="experience" class="py-12 px-6">
-            <h2 class="text-2xl font-bold text-center text-gray-800 mb-10">Interactive Career Timeline</h2>
-            <div class="relative border-l-2 border-blue-200 ml-6">
-                <!-- Experience Data will be injected here by JS -->
-            </div>
-        </section>
-
-        <!-- Education & Certifications -->
-        <section id="education" class="py-12 px-6 bg-gray-50 rounded-lg">
-            <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">Education & Certifications</h2>
-            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
-                <div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Education</h3>
-                    <ul class="space-y-4 text-gray-700">
-                        <li><strong>Master of Data Science</strong><br>University of New South Wales (UNSW)</li>
-                        <li><strong>Master of Business Administration (MBA)</strong><br>Philippines</li>
-                        <li><strong>Bachelor of Science in Accountancy</strong><br>Philippines</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Certifications</h3>
-                    <ul class="space-y-3 text-gray-700 list-disc list-inside">
-                        <li>CPA Australia</li>
-                        <li>MCSA-Power BI</li>
-                        <li>MTA-SQL Database Fundamentals</li>
-                        <li>Alteryx Designer Core Certified</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+<main id="main">
+<section class="hero" id="top">
+  <div class="wrap">
+    <p class="eyebrow">Sydney NSW · he/him · Australian citizen</p>
+    <h1>Travis John Villanueva</h1>
+    <p class="headline">Data Scientist &amp; Senior BI Developer, moving into <span class="accent">AI Engineering</span></p>
+    <p class="lede">About 10 years of turning business, financial and product data into decisions. I build data pipelines on BigQuery, dbt and Airflow, and LLM apps with tool calling and RAG. Master of Data Science (UNSW) and CPA.</p>
+    <div class="cta">
+      <a class="btn" href="#contact">Get in touch</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/travis-john-v-47815b55" rel="noopener" target="_blank">LinkedIn</a>
     </div>
+    <ul class="stats" aria-label="Highlights">
+      <li><strong>~2.4M</strong><span>Rewards app MAU analysed</span></li>
+      <li><strong>2h → 15–30m</strong><span>Airflow transformation runtime</span></li>
+      <li><strong>3–10s → instant</strong><span>Tableau dashboard load</span></li>
+      <li><strong>70–80%</strong><span>fewer hours on board reporting</span></li>
+    </ul>
+  </div>
+</section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            window.jspdf = window.jspdf.jsPDF;
+<section id="about">
+  <div class="wrap narrow">
+    <h2>About</h2>
+    <p>I'm a Senior BI Developer at WooliesX (Woolworths Group), where I work on product, campaign and executive analytics for the Everyday Rewards app on Google Cloud. My work covers medallion data models on BigQuery, Airflow data-quality pipelines, A/B testing with significance testing, and reporting that goes to the CEO.</p>
+    <p>I came to data through finance. I'm a CPA with a Bachelor of Accounting, and before WooliesX I automated board and month-end reporting at Omnicom Media Group, humm group, Crop Smart and Qantas. I finished a Master of Data Science at UNSW in 2025.</p>
+    <p>I'm now moving into AI engineering. I build my own LLM applications with tool calling, RAG and agentic workflows, and I ship them through Git-based CI/CD built with AI coding agents.</p>
+  </div>
+</section>
 
-            const experienceData = [
-                { company: 'WooliesX', role: 'Senior BI Analyst', period: 'October 2021 – Present', achievements: ['Led high-impact BI projects to monitor performance, enhance marketing efficiency, and provide strategic insights for the retail giant.', 'Developed systems for monitoring resource usage and analyzing the financial impact of external market factors.', 'Acted as a key collaborator in data science groups to apply machine learning techniques to solve complex business problems.'] },
-                { company: 'Humm', role: 'Senior Finance & BI Analyst', period: 'May 2021 – October 2021', achievements: ["Led the finance team's BI requirements, developing key volume reporting dashboards using Power BI and SQL."] },
-                { company: 'Crop Smart', role: 'Data & Financial Analyst', period: 'March 2020 – May 2021', achievements: ['Partnered directly with the CEO on analytics, financial reporting, and process streamlining.', 'Introduced machine learning for forecasting and built a cloud data warehouse, generating significant cost savings.'] },
-                { company: 'Qantas', role: 'BI Consultant', period: 'September 2019 – January 2020', achievements: ['Specialized in automating financial reporting using Power BI, Essbase, and MDX for the Finance Systems Governance team.'] },
-                { company: 'Omnicom Media Group', role: 'BI Developer & Systems Accountant', period: 'Sep 2016 – Sep 2019', achievements: ['Developed BI solutions for financial analytics and automated month-end consolidation and variance analysis.'] },
-                { company: 'Schneider Electric', role: 'Senior Finance Analyst', period: 'January 2013 – December 2014', achievements: ['<strong>Key FP&A Role:</strong> Drove the <strong>budgeting and forecasting</strong> process for the business unit.', 'Acted as a key business partner to operational managers, providing financial insights to guide decision-making.', 'Represented the finance team in knowledge-sharing initiatives and innovation groups.'] },
-                { company: 'San Miguel Foods', role: 'Group Finance Analyst', period: 'November 2008 – December 2012', achievements: ['<strong>Lead for Budgeting & Forecasting:</strong> Built and managed a uniform budgeting system (VBA) used across all divisions, ensuring fluid consolidation and analysis.', 'Consolidated financial reports from multiple regional offices for month-end review.', 'Partnered with operations to track KPIs and prepared detailed monthly cost-to-produce reports.'] }
-            ];
+<section id="experience" class="alt">
+  <div class="wrap">
+    <h2>Experience</h2>
+    <ol class="timeline">
+      <li>
+        <div class="role"><h3>Senior BI Developer</h3><p class="org">WooliesX (Woolworths Group) · Sydney, hybrid</p><p class="date">Oct 2021 – Present</p></div>
+        <ul>
+          <li>Led a 9-month rebuild of Rewards app reporting from MicroStrategy to a 9-page Tableau dashboard on BigQuery medallion layers, with SCD Type 2 history. Dashboards went from 3–10 seconds to near-instant.</li>
+          <li>Diagnosed a slow Airflow DAG through BigQuery job history and cut 14 core transformations from about 2 hours to 15–30 minutes.</li>
+          <li>Introduced dbt to the team with a dbt Core proof of concept on BigQuery (23 models), then presented it to the chapter.</li>
+          <li>Built A/B test and sample-sizing pipelines with propensity-matched controls, significance testing and incremental sales measurement.</li>
+          <li>Analysed Rewards app behaviour from Tealium event data (~2.4M MAU in Feb 2023) and worked with engineers to add and fix event tracking.</li>
+          <li>Built a Cloud Composer data-quality DAG that validates campaign products two weeks before launch, plus daily Python API ingestion of app-store install data.</li>
+          <li>Deliver a weekly active-users summary to the CEO and an automated morning executive email.</li>
+        </ul>
+      </li>
+      <li>
+        <div class="role"><h3>Senior BI and Insights Analyst (Contract)</h3><p class="org">humm group</p><p class="date">May 2021 – Oct 2021</p></div>
+        <ul><li>Built SQL Server data pipelines and Power BI reporting for finance and accounts receivable at a buy-now-pay-later lender.</li></ul>
+      </li>
+      <li>
+        <div class="role"><h3>Data Analyst (Contract)</h3><p class="org">Crop Smart</p><p class="date">Mar 2020 – May 2021</p></div>
+        <ul><li>Led and mentored a small team building Power BI reporting on Azure, with Azure Data Factory pipelines and Alteryx workflows that replaced manual data ingestion.</li></ul>
+      </li>
+      <li>
+        <div class="role"><h3>BI Analyst / Data Analyst (Contract)</h3><p class="org">Qantas</p><p class="date">Sep 2019 – Jan 2020</p></div>
+        <ul><li>Was the lead BI resource. Automated reporting with Power BI, MDX and SQL, improved ETL with M-Query, and trained analysts, finance staff and managers in Power BI.</li></ul>
+      </li>
+      <li>
+        <div class="role"><h3>BI Developer / Data Analyst</h3><p class="org">Omnicom Media Group · Pyrmont, Sydney</p><p class="date">Nov 2016 – Jul 2019</p></div>
+        <ul>
+          <li>Automated the board report by bridging Excel and Power BI, saving 70–80% of the hours needed to validate quarterly results.</li>
+          <li>Built dynamic accounts receivable ageing to flag likely bad debts at month end, and supported month-end close with SAP finance data.</li>
+          <li>Built a dedicated ETL pipeline for each ad platform (Google Analytics, DV360, Google Ads, Meta) to standardise campaign codes.</li>
+          <li>Automated invoice email processing with VBA, turning an 8-analyst task into a 1-administrator task.</li>
+        </ul>
+      </li>
+    </ol>
+    <p class="earlier">Earlier: Audit (on-the-job training), Ramon F. Garcia &amp; Co., CPAs, 2007–2008</p>
+  </div>
+</section>
 
-            const timelineContainer = document.querySelector('#experience .relative');
-            experienceData.forEach(item => {
-                const timelineItem = document.createElement('div');
-                timelineItem.className = 'mb-8 timeline-item';
-                timelineItem.innerHTML = `
-                    <div class="absolute w-8 h-8 bg-blue-500 rounded-full -left-4 mt-2 border-4 border-white flex items-center justify-center text-white font-bold">
-                        <span class="icon-plus text-2xl font-light leading-none">+</span>
-                    </div>
-                    <div class="ml-12 cursor-pointer bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-100">
-                        <h3 class="text-xl font-bold text-gray-800">${item.role}</h3>
-                        <p class="text-blue-600 font-medium">${item.company}</p>
-                        <p class="text-sm text-gray-500 mt-1">${item.period}</p>
-                    </div>
-                    <div class="ml-12 timeline-content bg-white rounded-b-lg shadow-md border-x border-b border-gray-100">
-                        <ul class="space-y-3 text-gray-700 list-disc list-inside">
-                            ${item.achievements.map(ach => `<li>${ach.replace(/<strong>/g, '').replace(/<\/strong>/g, '')}</li>`).join('')}
-                        </ul>
-                    </div>
-                `;
-                timelineContainer.appendChild(timelineItem);
-                timelineItem.querySelector('.cursor-pointer').addEventListener('click', () => {
-                    document.querySelectorAll('.timeline-item').forEach(el => {
-                        if (el !== timelineItem) el.classList.remove('active');
-                    });
-                    timelineItem.classList.toggle('active');
-                });
-            });
+<section id="projects">
+  <div class="wrap">
+    <h2>Selected AI projects</h2>
+    <p class="sub">LLM applications I built myself with Claude, using tool calling, RAG and agentic workflows. They're live on Vercel and Supabase.</p>
+    <div class="cards">
+      <article class="card">
+        <h3>Hey Hugh</h3>
+        <p class="tag">Customisable learning app with token economics</p>
+        <p>Cost-aware model routing sends each question to a model that suits its complexity, and users see the token cost of every interaction.</p>
+        <p class="stack">Claude · model routing · Vercel · Supabase</p>
+        <a href="https://heyhugh.vercel.app" target="_blank" rel="noopener">View app →</a>
+      </article>
+      <article class="card">
+        <h3>Whitepaper</h3>
+        <p class="tag">RAG study application</p>
+        <p>Retrieval-augmented answers over certification technical papers, grounded in the source text. Users record what they've understood and build a personalised book from their notes.</p>
+        <p class="stack">Claude · RAG · Vercel · Supabase</p>
+        <a href="https://whitepaper-psi.vercel.app" target="_blank" rel="noopener">View app →</a>
+      </article>
+      <article class="card">
+        <h3>Hardin <span class="pill">In progress</span></h3>
+        <p class="tag">Social gardening app with agentic reminders</p>
+        <p>Users share gardens with friends as co-carers, and agentic reminders bring up care tasks when they're due.</p>
+        <p class="stack">Claude · agentic workflows · Vercel · Supabase</p>
+        <a href="https://hardin-garden.vercel.app" target="_blank" rel="noopener">View app →</a>
+      </article>
+    </div>
+  </div>
+</section>
 
-            const downloadBtn = document.getElementById('download-pdf');
-            downloadBtn.addEventListener('click', () => {
-                const doc = new jspdf();
-                const pageHeight = doc.internal.pageSize.height;
-                const pageWidth = doc.internal.pageSize.width;
-                const margin = 15;
-                let yPos = margin;
+<section id="skills" class="alt">
+  <div class="wrap">
+    <h2>Skills</h2>
+    <div class="skills">
+      <div><h3>AI &amp; Automation</h3><ul class="chips"><li>LLM apps (Claude)</li><li>Tool calling</li><li>RAG</li><li>Agentic workflows</li><li>GitHub Copilot</li><li>Power Automate</li><li>Alteryx</li></ul></div>
+      <div><h3>Data Engineering</h3><ul class="chips"><li>Medallion ELT</li><li>dbt Core</li><li>Airflow / Cloud Composer</li><li>Python API ingestion</li><li>SQL Server / SSIS</li><li>Azure Data Factory</li><li>Git / GitHub PRs</li></ul></div>
+      <div><h3>Warehousing</h3><ul class="chips"><li>BigQuery</li><li>Snowflake</li><li>Postgres</li><li>Dimensional modelling</li><li>SCD Type 2</li><li>Partitioning &amp; clustering</li></ul></div>
+      <div><h3>Analytics &amp; Statistics</h3><ul class="chips"><li>A/B testing</li><li>Significance testing</li><li>Propensity matching</li><li>Incrementality</li><li>Forecasting (Prophet, XGBoost)</li><li>Segmentation</li></ul></div>
+      <div><h3>BI &amp; Languages</h3><ul class="chips"><li>SQL</li><li>Python</li><li>Tableau</li><li>Power BI / DAX</li><li>Looker</li><li>M-Query</li><li>Excel / VBA</li></ul></div>
+      <div><h3>Finance</h3><ul class="chips"><li>CPA</li><li>Board &amp; quarterly reporting</li><li>Month-end close</li><li>AR ageing</li><li>Reconciliation</li><li>Executive reporting</li></ul></div>
+    </div>
+  </div>
+</section>
 
-                function checkPageBreak(neededHeight) {
-                    if (yPos + neededHeight > pageHeight - margin) {
-                        doc.addPage();
-                        yPos = margin;
-                    }
-                }
+<section id="education">
+  <div class="wrap">
+    <h2>Education &amp; credentials</h2>
+    <div class="edu">
+      <div class="card"><h3>Master of Data Science</h3><p>UNSW Sydney · 2025</p></div>
+      <div class="card"><h3>Bachelor of Accounting</h3><p>San Sebastian College · 2008</p></div>
+      <div class="card"><h3>CPA</h3><p>CPA Australia, member since 2015<br>CPA Philippines, since 2008</p></div>
+      <div class="card"><h3>Certifications</h3><p>Google Cloud Generative AI Leader, Aug 2026<br>Google Cloud training (2023): data pipelines, ML &amp; AI<br>Microsoft DP-600 Fabric Analytics Engineer (in progress)</p></div>
+    </div>
+  </div>
+</section>
 
-                // Header
-                doc.setFontSize(22).setFont('helvetica', 'bold');
-                doc.text('Travis Villanueva', pageWidth / 2, yPos, { align: 'center' });
-                yPos += 8;
-                doc.setFontSize(10).setFont('helvetica', 'normal');
-                doc.text('Gables, NSW 2765 | 0404 248 265 | vtravisjohn@yahoo.com', pageWidth / 2, yPos, { align: 'center' });
-                yPos += 10;
-                doc.setLineWidth(0.5).line(margin, yPos, pageWidth - margin, yPos);
-                yPos += 10;
+<section id="blog" class="alt">
+  <div class="wrap">
+    <h2>Blog</h2>
+    <p class="sub">Short notes on data, BI and building with AI. New posts are added regularly.</p>
+    <div class="cards">
+      <article class="card">
+        <p class="post-meta"><time datetime="2026-10-17">17 October 2026</time></p>
+        <h3>Welcome: notes on data, BI and building with AI</h3>
+        <p>Why I am starting this blog, and what I plan to write about: practical data work, BI, and building LLM apps with tool calling and RAG.</p>
+        <a href="blog/posts/2026-10-17-welcome.html">Read post →</a>
+      </article>
+    </div>
+    <p style="margin-top:1.25rem"><a class="btn" href="blog/">View all posts</a></p>
+  </div>
+</section>
 
-                // Professional Summary
-                doc.setFontSize(14).setFont('helvetica', 'bold');
-                doc.text('Professional Summary', margin, yPos);
-                yPos += 7;
-                doc.setFontSize(10).setFont('helvetica', 'normal');
-                const summaryText = 'A tech-savvy and commercially-focused analyst with a proven ability to generate actionable insights and drive business performance through strategic commercial partnering. With a strong analytical mindset and expertise in modern BI tools, I translate complex data into clear narratives that support senior leadership. This contemporary skillset is built upon a solid foundation in accounting and finance, including experience in 3-way financial modeling, comprehensive budgeting and forecasting cycles, and board-level reporting.';
-                const summaryLines = doc.splitTextToSize(summaryText, pageWidth - margin * 2);
-                checkPageBreak(summaryLines.length * 5);
-                doc.text(summaryLines, margin, yPos);
-                yPos += summaryLines.length * 5 + 5;
+<section id="contact" class="contact">
+  <div class="wrap narrow">
+    <h2>Let's talk</h2>
+    <p>I'm open to data science, analytics engineering and AI engineering roles in Sydney (hybrid).</p>
+    <ul class="links">
+      <li><a href="mailto:vtravisjohn@yahoo.com">vtravisjohn@yahoo.com</a></li>
+      <li><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a></li>
+    </ul>
+  </div>
+</section>
+</main>
 
-                // Core Competencies
-                doc.setFontSize(14).setFont('helvetica', 'bold');
-                doc.text('Core Competencies', margin, yPos);
-                yPos += 7;
-                doc.setFontSize(10).setFont('helvetica', 'normal');
-                const competencies = [
-                    'Financial Planning & Analysis (FP&A): Expertise in 3-way financial modeling and variance analysis, underpinned by a CPA qualification.',
-                    'Budgeting & Forecasting: Experience managing and consolidating company-wide budgets and forecasts.',
-                    'Investment & Feasibility Analysis: Skilled in building models for investment evaluation, including IRR and scenario planning.',
-                    'Business Intelligence & Automation: Proficient in implementing BI tools (Power BI, Tableau) to enhance financial reporting.',
-                    'Stakeholder Management: Proven ability to act as a key business partner to the C-suite, JV stakeholders, and operational leaders.',
-                    'Data-Driven Decision Making: Leverages data science techniques to deliver deep insights and support strategic initiatives.'
-                ];
-                competencies.forEach(comp => {
-                    const compLines = doc.splitTextToSize(`• ${comp}`, pageWidth - margin * 2 - 5);
-                    checkPageBreak(compLines.length * 5);
-                    doc.text(compLines, margin + 5, yPos);
-                    yPos += compLines.length * 5;
-                });
-                yPos += 5;
-
-                // Professional Experience
-                doc.setFontSize(14).setFont('helvetica', 'bold');
-                doc.text('Professional Experience', margin, yPos);
-                yPos += 7;
-                experienceData.forEach(item => {
-                    checkPageBreak(20);
-                    doc.setFontSize(11).setFont('helvetica', 'bold');
-                    doc.text(`${item.role} | ${item.company}`, margin, yPos);
-                    doc.setFontSize(10).setFont('helvetica', 'italic');
-                    doc.text(item.period, pageWidth - margin, yPos, { align: 'right' });
-                    yPos += 6;
-                    doc.setFontSize(10).setFont('helvetica', 'normal');
-                    item.achievements.forEach(ach => {
-                        const cleanAch = ach.replace(/<strong>/g, '').replace(/<\/strong>/g, '');
-                        const achLines = doc.splitTextToSize(`• ${cleanAch}`, pageWidth - margin * 2 - 5);
-                        checkPageBreak(achLines.length * 5);
-                        doc.text(achLines, margin + 5, yPos);
-                        yPos += achLines.length * 5;
-                    });
-                    yPos += 4;
-                });
-                yPos += 5;
-
-                // Education & Certifications
-                checkPageBreak(40);
-                doc.setFontSize(14).setFont('helvetica', 'bold');
-                doc.text('Education & Certifications', margin, yPos);
-                yPos += 7;
-
-                doc.setFontSize(11).setFont('helvetica', 'bold');
-                doc.text('Education', margin, yPos);
-                yPos += 6;
-                doc.setFontSize(10).setFont('helvetica', 'normal');
-                doc.text('Master of Data Science - University of New South Wales (UNSW)', margin, yPos);
-                yPos += 5;
-                doc.text('Master of Business Administration (MBA) - Philippines', margin, yPos);
-                yPos += 5;
-                doc.text('Bachelor of Science in Accountancy - Philippines', margin, yPos);
-                yPos += 10;
-
-                doc.setFontSize(11).setFont('helvetica', 'bold');
-                doc.text('Certifications', margin, yPos);
-                yPos += 6;
-                doc.setFontSize(10).setFont('helvetica', 'normal');
-                const certs = ['CPA Australia', 'MCSA-Power BI', 'MTA-SQL Database Fundamentals', 'Alteryx Designer Core Certified'];
-                certs.forEach(cert => {
-                    doc.text(`• ${cert}`, margin + 5, yPos);
-                    yPos += 5;
-                });
-
-                doc.save('Travis_Villanueva_Resume.pdf');
-            });
-        });
-    </script>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="#top">Home</a> · <a href="blog/">Blog</a> · <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
 </body>
 </html>
