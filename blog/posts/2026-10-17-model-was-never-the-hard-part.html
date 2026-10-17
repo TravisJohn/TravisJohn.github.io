@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Model Was Never the Hard Part | Travis John Villanueva</title>
+<meta name="description" content="The hardest part of a data science project usually isn’t the model. It’s the bit before anyone touches the data — agreeing on what the question actually is.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Model Was Never the Hard Part">
+<meta property="og:description" content="The hardest part of a data science project usually isn’t the model. It’s the bit before anyone touches the data — agreeing on what the question actually is.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-17-model-was-never-the-hard-part.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-17-model-was-never-the-hard-part.html">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../">Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-17">17 October 2026</time> · Travis John Villanueva</p>
+<h1>The Model Was Never the Hard Part</h1>
+<p>More recently, outside my day role, I&#x27;ve been spending more time working on data science and AI engineering projects. The more work I see, the more I keep coming back to the same unglamorous lesson: the hardest part of a data science project usually isn&#x27;t the model. It&#x27;s the bit before anyone touches the data — agreeing on what the question actually is.</p>
+<p>&quot;Can we predict X?&quot; sounds clear in a meeting. It stops sounding clear when you realise people have heard it differently. One person wants an early warning, another wants an explanation, and someone else wants a number they can put into a plan. If we don&#x27;t sort that out first, we can build something technically sound that still doesn&#x27;t help anyone decide anything.</p>
+<p>That&#x27;s why I like to start with three framing questions.</p>
+<p>First: what decision will this change? If the answer is &quot;none, really&quot;, then we&#x27;re doing exploration, which is fine, but we should call it that. If a decision will change, name it.</p>
+<p>Second: who will actually use it, and when? A person reviewing results in a regular meeting needs something different from a system acting automatically. Build for a vague &quot;the business&quot; and you usually build for nobody in particular.</p>
+<p>Third: how wrong is it allowed to be, and in which direction? Not all errors cost the same. Sometimes a false alarm just wastes a bit of attention. Sometimes missing something is far worse. Unless we discuss that trade-off in plain language, we end up arguing about an accuracy metric that doesn&#x27;t map to the real-world consequence.</p>
+<p>Once those answers are down, a few habits help me keep a project honest.</p>
+<p>Write the decision down before touching any data. One or two sentences is enough.</p>
+<p>Ask what &quot;good enough&quot; looks like, in plain language, not just a metric. Would a simple, explainable answer change behaviour? Would getting the direction right most of the time be enough to act?</p>
+<p>Build the simplest baseline first. A baseline tells you how hard the problem is and sets a fair bar for anything fancier. If a complex model only just beats the simple rule, that&#x27;s valuable information, not a failure.</p>
+<p>And show something rough in week one. A scrappy chart or a crude first cut invites the right feedback early: Is this the right question? Is this output usable? Is this even the decision we meant? Those corrections are cheap in week one and expensive in week six.</p>
+<p>I ran into this recently on a practice project: building a dynamic pricing model for a ride-share company from a public Kaggle dataset. The column labelled as the target was the historical fare, so the obvious move was to predict it as accurately as possible. But the real question was different. It wasn&#x27;t &quot;what did we charge?&quot; but &quot;what should we charge when riders outnumber drivers?&quot;</p>
+<p>The data made the gap obvious. A baseline that used only ride duration was off by about $55 a ride. Adding demand, supply, location and customer features only brought that down to about $52, because the old price never responded to any of them. Once I saw that, I stopped trying to get more accuracy out of the model. Its job became explaining the base fare. The surge became a rule I designed on top of it. The revenue impact became a set of scenarios, because nothing in the data shows how riders react when the price goes up.</p>
+<p>That project is exactly why I trust the baseline and the framing questions. Without them, I could easily have spent weeks shaving a few dollars off an error metric and still never answered the pricing question.</p>
+<p>I&#x27;m finding the same pattern as I move further into AI engineering and LLM projects. A fuzzy brief doesn&#x27;t get rescued by a clever prompt or a bigger model. You still need to know what task the system is meant to support, who checks its output, and what &quot;good enough&quot; means before you can sensibly judge whether it&#x27;s working. Without that, evaluation becomes guesswork, because you never defined what success was supposed to look like.</p>
+<p>If anything, clearer framing makes the technical work easier. Half the modelling and design choices start making themselves once the decision, the user, and the cost of being wrong are clear.</p>
+<p>What&#x27;s the question you wish someone had asked at the start of your last project?</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a> · <a href="../">Blog</a> · <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
