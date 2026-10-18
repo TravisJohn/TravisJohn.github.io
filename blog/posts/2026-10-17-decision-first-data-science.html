@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Start with the decision, not the model | Travis John Villanueva</title>
+<meta name="description" content="The hardest part of a data science project is usually agreeing on the question, the decision it will change, and what good enough looks like — before touching the data.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Start with the decision, not the model">
+<meta property="og:description" content="Write the decision down first, define good enough in plain language, build the simplest baseline, and show something rough in week one.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-17-decision-first-data-science.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-17-decision-first-data-science.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@300;500;600;700&display=swap" rel="stylesheet">
+<script>(function(){try{var t=localStorage.getItem('travis-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../">Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav>
+    <div class="theme-switcher" role="group" aria-label="Colour theme"><button type="button" data-theme-btn="light" aria-pressed="false">Light</button><button type="button" data-theme-btn="warm" aria-pressed="false">Warm</button><button type="button" data-theme-btn="dark" aria-pressed="false">Dark</button></div></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-17">17 October 2026</time> · Travis John Villanueva</p>
+<h1>Start with the decision, not the model</h1>
+<p>The hardest part of a data science project usually isn't the model. It's the bit before: agreeing on what the question actually is.</p>
+<p>“Can we predict X?” sounds clear until you ask what decision the prediction will change, who'll use it, and how wrong it's allowed to be. Those three questions can turn a tidy-sounding request into a very different piece of work — and that's a good thing. It's much better to find that out in a one-hour conversation than after weeks of building.</p>
+<h2>“Can we predict X?” is the start, not the brief</h2>
+<p>A prediction on its own doesn't do anything. Someone has to act on it: approve or decline something, contact a customer, order more or less stock, investigate a case, or leave things alone. If nobody can name the action, the project doesn't have a purpose yet — it has a topic.</p>
+<p>So before touching any data, I try to get three answers in plain language:</p>
+<ul>
+<li><strong>What decision will this change?</strong> Not “give us insight”, but the actual choice someone will make differently.</li>
+<li><strong>Who will use it, and when?</strong> A person reviewing cases each morning needs something different from a system making an automatic call.</li>
+<li><strong>How wrong is it allowed to be?</strong> A false alarm and a missed case rarely cost the same. Knowing which mistake hurts more shapes everything that follows.</li>
+</ul>
+<h2>Four habits that keep projects honest</h2>
+<h3>1. Write the decision down before touching data</h3>
+<p>One short paragraph is enough: the decision, who makes it, what they'll see, and what they'll do with it. Get the person who owns the decision to agree to that paragraph. It feels slow. It saves far more time than it costs, because every later argument — about features, metrics, or scope — can be settled by going back to that paragraph.</p>
+<h3>2. Ask what “good enough” looks like in plain language</h3>
+<p>Accuracy targets mean little to most decision-makers. “It catches most of the cases we're worried about, and the ones it flags are worth a person checking” means a lot more. Translate the technical measure into the language of the decision: what would make this useful, what would make it dangerous, and what would make it not worth having at all? If “good enough” can't be described, it can't be tested either.</p>
+<h3>3. Build the simplest baseline first</h3>
+<p>Before any serious modelling, try the embarrassingly simple version: what happens if we use last period's value, a simple average, or the rule people already use today? That baseline does two jobs. It tells you whether the fancy model is actually adding anything, and it gives everyone an early, concrete thing to react to. Sometimes the baseline is good enough — and finding that out early is a win, not a failure.</p>
+<h3>4. Show something rough in week one</h3>
+<p>A rough chart, a small sample of predictions, a sketch of the output exactly as the user will see it — anything real beats a progress update. Stakeholders react honestly to things they can see. “That's not the number I meant” is painful in week one and expensive in week ten. Showing rough work early is how you find out what people actually meant while it's still cheap to change.</p>
+<h2>The same lesson applies to LLM projects</h2>
+<p>It's tempting to treat AI projects as different, but the pattern is identical. “Can an LLM help with X?” still needs a decision behind it: what will the person do with the answer, who checks it, and how wrong can it be before it causes harm?</p>
+<p>That framing decides the design. If someone will review every output before acting, the AI can draft and summarise. If nobody will check, the bar is far higher — and maybe the honest answer is that it should retrieve and quote sources rather than generate freely, as I do with RAG in my own apps. “Good enough” in plain language, a simple baseline (often: what does a person do today, and how long does it take?), and something rough shown early — the habits carry straight across.</p>
+<h2>A one-paragraph test</h2>
+<p>If you can fill in these blanks before the project starts, you're ready to build:</p>
+<ul>
+<li>When this works, <em>[person]</em> will use it to decide <em>[decision]</em>.</li>
+<li>They'll act on it by <em>[action]</em>, at <em>[time or trigger]</em>.</li>
+<li>It's good enough if <em>[plain-language standard]</em>, and unacceptable if <em>[plain-language failure]</em>.</li>
+<li>Our simplest baseline is <em>[current rule or simple method]</em>, and we'll show a rough version by <em>[date]</em>.</li>
+</ul>
+<p>Models will keep getting better, and the tools will keep changing. The projects that work are still the ones that start with a decision someone actually needs to make.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a> · <a href="../">Blog</a> · <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+<script>
+(function(){
+  var root=document.documentElement;
+  function current(){return root.getAttribute('data-theme')||'light';}
+  function apply(t){root.setAttribute('data-theme',t);document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-theme-btn')===t));});}
+  apply(current());
+  document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-theme-btn');apply(t);try{localStorage.setItem('travis-theme',t);}catch(e){}});});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var layers=[].slice.call(document.querySelectorAll('[data-parallax]'));
+  if(reduce||!layers.length||!('requestAnimationFrame' in window))return;
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var vh=window.innerHeight||800;
+    layers.forEach(function(el){
+      var host=el.parentElement.getBoundingClientRect();
+      var p=(host.top+host.height/2-vh/2)/vh; p=Math.max(-1,Math.min(1,p));
+      var rate=parseFloat(el.getAttribute('data-parallax'))||10;
+      el.style.transform='translate3d(0,'+(p*rate).toFixed(1)+'px,0)';
+    });
+  }
+  function request(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',request,{passive:true});
+  window.addEventListener('resize',request);
+  update();
+})();
+</script>
+</body></html>
