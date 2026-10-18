@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nobody Claps for the Pipeline | Travis John Villanueva</title>
+<meta name="description" content="There&#x27;s a pattern in data work I keep running into. The exciting part — the model, the dashboard, the chatbot that answers questions in plain English — gets all the attention.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nobody Claps for the Pipeline">
+<meta property="og:description" content="There&#x27;s a pattern in data work I keep running into. The exciting part — the model, the dashboard, the chatbot that answers questions in plain English — gets all the attention.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-18-nobody-claps-for-the-pipeline.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-18-nobody-claps-for-the-pipeline.html">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../">Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-18">18 October 2026</time> · Travis John Villanueva</p>
+<h1>Nobody Claps for the Pipeline</h1>
+<p>There&#x27;s a pattern in data work I keep running into. The exciting part — the model, the dashboard, the chatbot that answers questions in plain English — gets all the attention. The part that decides whether it works next week gets almost none. That part is the pipeline: the unglamorous plumbing that moves data from where it lives to where it&#x27;s useful, and makes sure it arrives in one piece.</p>
+<p>More recently, outside my day role, I&#x27;ve been spending more time on data science and AI engineering projects, and the lesson keeps coming back the same way. If I don&#x27;t get the data plumbing right, nothing I build on top of it really matters.</p>
+<h2>1. Re-runnable beats clever</h2>
+<p>The first test I put a pipeline through now is simple: what happens if I run it twice? If the answer is &quot;you get double the rows&quot; or &quot;it depends what state it was in&quot;, that&#x27;s a problem waiting for a bad day. Pipelines fail halfway, get retried, get re-run by someone who didn&#x27;t know it already ran. A pipeline that&#x27;s idempotent — same inputs, same output, no matter how many times you run it — turns those moments from a clean-up job into a non-event. It&#x27;s the difference between trusting your numbers and double-checking them every morning.</p>
+<h2>2. Check data at the door, not in the dashboard</h2>
+<p>Most data problems are found too late, usually by someone looking at a chart and saying &quot;that can&#x27;t be right&quot;. By then the bad data has already flowed into reports, features and decisions. I&#x27;d much rather catch it on the way in. Basic checks go a long way: are the columns I expect actually there, are the types right, are there nulls where there shouldn&#x27;t be, is today&#x27;s row count wildly different from yesterday&#x27;s? None of this is sophisticated. It just moves discovery from &quot;after everyone&#x27;s used it&quot; to &quot;before anyone has&quot;.</p>
+<h2>3. Boringly predictable, especially when it fails</h2>
+<p>A good pipeline doesn&#x27;t just work. It fails well. When something goes wrong, I want it to stop loudly, early, and in one obvious place — not quietly push half-broken data downstream. Clear logging, sensible alerts and small, well-named steps make a pipeline something you can reason about instead of fearing.</p>
+<h2>What sports data teaches you</h2>
+<p>My NBA analytics side project has been a good reminder of all this. Sports data looks tidy from the outside — games, players, box scores — but it gets messy quickly: players traded mid-season, franchises rebranding across seasons, games postponed and rescheduled. If the pipeline doesn&#x27;t handle those cases deliberately, the analysis on top quietly goes wrong, while looking perfectly confident.</p>
+<p>I ran straight into the mid-season trade nightmare while building statistical models and lineup efficiency charts for my San Antonio Spurs analytics project. I was running a pipeline pulling play-by-play data, but when the trade deadline hit, players were suddenly logging minutes for two different teams in the same week. My SQL aggregations didn&#x27;t know how to handle the changing team abbreviations, causing massive duplicate rows and completely skewing the defensive ratings in my dashboards.</p>
+<p>I had to step back and refactor the pipeline using dbt. I built a slowly changing dimension table to track player-team assignments by exact game date, and added data quality tests in my Airflow DAGs to immediately flag any orphaned player IDs or duplicate game logs before the final models ran. It wasn&#x27;t flashy work, but it saved the integrity of the entire project.</p>
+<h2>Why this matters more with AI</h2>
+<p>This links back to AI engineering. LLMs and retrieval systems are only as good as what you feed them. Give a RAG system stale documents, duplicates or half-loaded tables, and it won&#x27;t flag that something&#x27;s off — it&#x27;ll write a fluent, confident answer from bad inputs. With traditional models you&#x27;d at least see metrics drop. With LLMs the failure can sound completely reasonable. So the more AI I build, the more I value the boring layer underneath.</p>
+<h2>The takeaway</h2>
+<p>If you&#x27;re early in data or AI work, learn to love the plumbing. Make pipelines re-runnable, check data on the way in, and design them to fail loudly. Nobody claps for the pipeline, but everything you&#x27;re proud of stands on it.</p>
+<p>If you&#x27;re just starting out in data engineering or AI, my biggest piece of advice is to fall in love with the unglamorous work. Don&#x27;t rush to build the flashy LLM app until you know how to build a robust, idempotent data pipeline. Mastering the foundational tools — whether that&#x27;s SQL, dbt, Airflow, or BigQuery — might not get you standing ovations, but it&#x27;s the bedrock that makes all the advanced analytics and AI actually trustworthy.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a> · <a href="../">Blog</a> · <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
