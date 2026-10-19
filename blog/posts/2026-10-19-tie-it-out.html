@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tie It Out: What Accounting Taught Me About Trusting AI | Travis John Villanueva</title>
+<meta name="description" content="There&#x27;s a phrase from accounting that has outlived almost everything else I learned: &quot;Does it tie out?&quot; That old reflex to reconcile is my most valuable tool in data science and AI engineering.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tie It Out: What Accounting Taught Me About Trusting AI">
+<meta property="og:description" content="There&#x27;s a phrase from accounting that has outlived almost everything else I learned: &quot;Does it tie out?&quot; That old reflex to reconcile is my most valuable tool in data science and AI engineering.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-19-tie-it-out.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-19-tie-it-out.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@300;500;600;700&display=swap" rel="stylesheet">
+<script>(function(){try{var t=localStorage.getItem('travis-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../">Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav>
+    <div class="theme-switcher" role="group" aria-label="Colour theme"><button type="button" data-theme-btn="light" aria-pressed="false">Light</button><button type="button" data-theme-btn="warm" aria-pressed="false">Warm</button><button type="button" data-theme-btn="dark" aria-pressed="false">Dark</button></div></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-19">19 October 2026</time> · Travis John Villanueva</p>
+<h1>Tie It Out: What Accounting Taught Me About Trusting AI</h1>
+<p>There's a phrase from accounting that has outlived almost everything else I learned: "Does it tie out?"</p>
+<p>Does this number match that one? Does the subledger match the general ledger? Does the balance sheet balance to the cent? If not, you aren't done—no matter how clean the report looks.</p>
+<p>Lately, working across data science and AI engineering, I've realized my most valuable tool isn't a cutting-edge model or a complex prompt. It's that old reflex to reconcile.</p>
+<p>Here are the four accounting checks I rely on every day:</p>
+<h3>1. Counts In, Counts Out</h3>
+<p>Every time data moves through a pipeline, track your row counts. If a join quietly drops records or a messy key duplicates them, counts reveal it immediately. You don't always need identical input and output numbers—filters exist—but you must be able to explain the difference.</p>
+<h3>2. Control Totals</h3>
+<p>Accountants use control totals to prove a batch wasn't altered in transit. In data, the principle is identical: does the sum in the transformed table still match the source? On my NBA side project, player points must equal the team's final score. If they don't, a merge or filter broke upstream. It's unglamorous, and it catches real bugs.</p>
+<h3>3. Trace It Back to the Source</h3>
+<p>Auditors never take a figure on faith; they follow it back to the invoice. This is essential for Large Language Models (LLMs). An AI can write a fluent, persuasive answer that is flat-out wrong. When building AI systems that analyze or summarize data, anchor every claim to a verifiable source: a raw passage, a SQL query, or a hard metric. "Sounds right" isn't a reconciliation.</p>
+<h3>4. Explain the Variance</h3>
+<p>Spotting a discrepancy is only half the job; explaining it is the other half. If an AI evaluation score slips or an overnight metric shifts, ask why. Is it a genuine change in the underlying data, or did an upstream bug slip in?</p>
+<h2>The Henhouse Test: Tolerances When Perfection Isn't Feasible</h2>
+<p>Early in my accounting career, I worked on analyzing a chicken breeding operation. Our job was to reconcile actual egg production against the agricultural planning reports before numbers went to billing.</p>
+<p>Down at the individual hen house level, a perfect down-to-the-single-egg reconciliation was virtually impossible. Nature doesn't balance to the cent. But because the financial stakes were material, we couldn't just throw our hands up and guess, either.</p>
+<p>I built a rigorous counterchecking process to ensure every variance fell within a strictly defined, defensible tolerance. The work was painfully tedious and undeniably boring. Yet every time billing questioned an anomaly, that boring discipline turned panic into relief: we could instantly prove the variance was within expected operational bounds, not a catastrophic pipeline leak.</p>
+<h2>Why This Matters More With AI</h2>
+<p>Traditional software usually fails loudly: a SQL syntax error, a broken chart, a null pointer. AI fails quietly and confidently.</p>
+<p>Just like an agricultural operation or an unpredictable pipeline, generative AI systems won't always give you clean, deterministic outputs down to the decimal. That doesn't mean you abandon standards—it means you define your control totals and tolerances before you ship.</p>
+<p>Trustworthy AI isn't about hoping the model is clever. It's about good bookkeeping: knowing where every number came from, setting boundaries, and always being able to show your work.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a> · <a href="../">Blog</a> · <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+<script>
+(function(){
+  var root=document.documentElement;
+  function current(){return root.getAttribute('data-theme')||'light';}
+  function apply(t){root.setAttribute('data-theme',t);document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-theme-btn')===t));});}
+  apply(current());
+  document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-theme-btn');apply(t);try{localStorage.setItem('travis-theme',t);}catch(e){}});});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var layers=[].slice.call(document.querySelectorAll('[data-parallax]'));
+  if(reduce||!layers.length||!('requestAnimationFrame' in window))return;
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var vh=window.innerHeight||800;
+    layers.forEach(function(el){
+      var host=el.parentElement.getBoundingClientRect();
+      var p=(host.top+host.height/2-vh/2)/vh; p=Math.max(-1,Math.min(1,p));
+      var rate=parseFloat(el.getAttribute('data-parallax'))||10;
+      el.style.transform='translate3d(0,'+(p*rate).toFixed(1)+'px,0)';
+    });
+  }
+  function request(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',request,{passive:true});
+  window.addEventListener('resize',request);
+  update();
+})();
+</script>
+</body></html>
