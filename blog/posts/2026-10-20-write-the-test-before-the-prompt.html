@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Write the Test Before the Prompt | Travis John Villanueva</title>
+<meta name="description" content="I change a word in the prompt, run it once, and think &quot;that&#x27;s better&quot; — but a prompt that feels great on one question may be worse on everything else. Write the test set first, then the prompt.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Write the Test Before the Prompt">
+<meta property="og:description" content="I change a word in the prompt, run it once, and think &quot;that&#x27;s better&quot; — but a prompt that feels great on one question may be worse on everything else. Write the test set first, then the prompt.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-20-write-the-test-before-the-prompt.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-20-write-the-test-before-the-prompt.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@300;500;600;700&display=swap" rel="stylesheet">
+<script>(function(){try{var t=localStorage.getItem('travis-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../">Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav>
+    <div class="theme-switcher" role="group" aria-label="Colour theme"><button type="button" data-theme-btn="light" aria-pressed="false">Light</button><button type="button" data-theme-btn="warm" aria-pressed="false">Warm</button><button type="button" data-theme-btn="dark" aria-pressed="false">Dark</button></div></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-20">20 October 2026</time> · Travis John Villanueva</p>
+<h1>Write the Test Before the Prompt</h1>
+<p>There&#x27;s a moment in every LLM project where I catch myself in the same loop. I change a word in the prompt, run it once, read the answer and think, &quot;Yeah, that&#x27;s better.&quot; Then I change another word. An hour later I&#x27;ve got a prompt that feels great on the one question I keep asking, and no idea whether it&#x27;s better on anything else.</p>
+<p>More recently, outside my day role, I&#x27;ve been spending more time on data science and AI engineering projects, and that loop is the trap I keep seeing. It&#x27;s not a model problem. It&#x27;s a testing problem.</p>
+<h2>Vibes don&#x27;t scale</h2>
+<p>Reading one answer and judging it by feel is fine for the first ten minutes. After that it falls apart: you only see the example you picked, and you usually pick an easy one; a change that fixes one answer can quietly break another you didn&#x27;t re-check; and you can&#x27;t tell anyone, including future you, why version 7 beat version 6.</p>
+<p>In data science we&#x27;d never accept &quot;the model looks right on this one row.&quot; LLM work deserves the same holdout discipline, even if scoring is messier.</p>
+<figure class="post-figure">
+<img src="../../images/prompt-regression-testing-cartoon.jpg" alt="Two-panel cartoon titled Prompt Regression Testing. Left panel, &#x27;Vibe Tuning&#x27;: a man at a computer says &#x27;It works on this one example!&#x27; beside a tall stack of papers labelled &#x27;The Rest of the Data&#x27;. Right panel, &#x27;Testing First / Test Driven&#x27;: a woman at a TEST SET screen thinks &#x27;Does it work on the other thirty?&#x27; beside a filing cabinet labelled &#x27;Past Failures&#x27;." width="1400" height="781" loading="lazy">
+<figcaption>Prompt regression testing: vibe tuning vs test driven</figcaption>
+</figure>
+<h2>A tiny eval set goes a long way</h2>
+<p>You don&#x27;t need a framework to start. My version is a plain table:</p>
+<ul>
+<li><strong>Question:</strong> something a real user would actually ask</li>
+<li><strong>Expected answer:</strong> what a correct response must contain, taken from data I trust</li>
+<li><strong>Check:</strong> an exact match where possible, a &quot;must mention X&quot; rule where not, and a quick human read for the fuzzy ones</li>
+<li><strong>Notes:</strong> why it failed last time</li>
+</ul>
+<p>Twenty to thirty rows is enough. Include the awkward cases on purpose — ambiguous names, questions with no answer in the data, and ones needing two facts combined. Easy questions make every prompt look good.</p>
+<p>Every tweak then gets retested against the whole set, not just your favourite example. That favourite is the worst judge you&#x27;ve got — it&#x27;s the one you already know the prompt handles well. Run the lot, so you can see whether you got better overall, or just fixed one answer while breaking another.</p>
+<h2>Tie it back to the source</h2>
+<p>The ground truth should already be sitting in a table or document I trust. So when I ask an LLM a factual question, I&#x27;m not guessing whether it&#x27;s right. I compare it to the source. If the model says 12 and the source says 9, it fails. No partial credit for sounding confident.</p>
+<p>That&#x27;s the same reconciliation habit from my accounting days: tie the answer back to the source before you trust it.</p>
+<h2>Keep the failures</h2>
+<p>The best rows are the ones that failed. Every time the model gets something wrong in a surprising way, add it. Over time the set records every mistake you&#x27;ve already fixed, so they can&#x27;t creep back in when you change the prompt, model or retrieval.</p>
+<h2>The boring bit I have to plan for</h2>
+<p>I&#x27;ll be honest: I find this retesting painfully boring. Running the same questions again, checking the same kinds of answers again, is not the part of building I look forward to.</p>
+<p>I&#x27;ve also learned there is no other way around it. So I often plan this activity in advance, as its own job. If I plan it, and I have the mindset that &quot;tomorrow, I will do this stuff&quot;, my mind is better prepared. It stops being the tedious thing I tack on at the end of a good session, and becomes the job itself.</p>
+<p>That&#x27;s where I&#x27;m living it with Hey Hugh, a learning app I&#x27;m building. I need to determine whether the curated syllabus is actually consistent, not just whether it looks consistent at a glance. To help, I apply an entropy score — a way to flag inconsistency and unevenness, rather than relying purely on feel.</p>
+<p>It doesn&#x27;t make the checking exciting, but it does make the retesting more targeted — the score points me to where a closer look is needed. The discipline is still boring, and still has to be planned, but at least I know where to aim it.</p>
+<h2>Where this leaves me</h2>
+<p>The model is usually the least of the problem. The question is whether you can prove a change made things better, and a small, honest test set is the cheapest way I know to do that. Write it first. Then write the prompt.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a> · <a href="../">Blog</a> · <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+<script>
+(function(){
+  var root=document.documentElement;
+  function current(){return root.getAttribute('data-theme')||'light';}
+  function apply(t){root.setAttribute('data-theme',t);document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-theme-btn')===t));});}
+  apply(current());
+  document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-theme-btn');apply(t);try{localStorage.setItem('travis-theme',t);}catch(e){}});});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var layers=[].slice.call(document.querySelectorAll('[data-parallax]'));
+  if(reduce||!layers.length||!('requestAnimationFrame' in window))return;
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var vh=window.innerHeight||800;
+    layers.forEach(function(el){
+      var host=el.parentElement.getBoundingClientRect();
+      var p=(host.top+host.height/2-vh/2)/vh; p=Math.max(-1,Math.min(1,p));
+      var rate=parseFloat(el.getAttribute('data-parallax'))||10;
+      el.style.transform='translate3d(0,'+(p*rate).toFixed(1)+'px,0)';
+    });
+  }
+  function request(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',request,{passive:true});
+  window.addEventListener('resize',request);
+  update();
+})();
+</script>
+</body></html>
