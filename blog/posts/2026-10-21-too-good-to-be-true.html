@@ -41,6 +41,10 @@
 </ul>
 <h2>🏀 An example from NoFlightZone</h2>
 <p>On my NBA analytics channel, <a href="https://www.youtube.com/@noflightzone-h6p" target="_blank" rel="noopener">NoFlightZone</a>, this trap is everywhere. Say you want to predict whether a team wins. Feed in full-game box-score stats like points, plus/minus or field goals made, and the model looks amazing. Of course it does, because those numbers are basically the final score in disguise. You&#x27;d never have them before tip-off.</p>
+<figure class="post-figure">
+<a href="https://www.youtube.com/@noflightzone-h6p" target="_blank" rel="noopener"><img src="../../images/noflightzone-banner.jpg" alt="No Flight Zone YouTube channel banner: the NFZ alien-and-wings logo beside the title &#x27;No Flight Zone — Hidden NBA Insights&#x27;, framed by NBA team logos, above the channel name noflightzone (@noflightzone-h6p, 11.6k subscribers, 123 videos)." width="1302" height="401" loading="lazy"></a>
+<figcaption>No Flight Zone — hidden NBA insights on YouTube</figcaption>
+</figure>
 <p>The honest version only uses what you&#x27;d know beforehand: form up to the previous game, rest days, home or away, and who&#x27;s available. The score drops, sometimes a lot, but it&#x27;s a real score.</p>
 <p>I fell into this one myself. I was building an L1 (lasso) regression on Spurs game data to find which features actually drive a win. I knew points were off limits, so I took the scores out and felt pretty pleased with myself. The model still looked brilliant. Then I spotted it: I&#x27;d left in plus/minus. Plus/minus tracks the score difference while a player is on court, so added up across the team it&#x27;s the final margin. The model hadn&#x27;t found what wins games. It had found the scoreboard. Once I took it out, the model got noticeably weaker, but now it was actually telling me something.</p>
 <h2>My leakage checklist</h2>
