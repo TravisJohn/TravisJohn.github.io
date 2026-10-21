@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Too Good to Be True: Hunting for Data Leakage | Travis John Villanueva</title>
+<meta name="description" content="A model score that looks too good is usually data leakage: information the model wouldn&#x27;t have at prediction time. An NBA example, a checklist, and why it happens with LLM evals too.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Too Good to Be True: Hunting for Data Leakage">
+<meta property="og:description" content="A model score that looks too good is usually data leakage: information the model wouldn&#x27;t have at prediction time. An NBA example, a checklist, and why it happens with LLM evals too.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-21-too-good-to-be-true.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-21-too-good-to-be-true.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@300;500;600;700&display=swap" rel="stylesheet">
+<script>(function(){try{var t=localStorage.getItem('travis-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../">Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav>
+    <div class="theme-switcher" role="group" aria-label="Colour theme"><button type="button" data-theme-btn="light" aria-pressed="false">Light</button><button type="button" data-theme-btn="warm" aria-pressed="false">Warm</button><button type="button" data-theme-btn="dark" aria-pressed="false">Dark</button></div></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-21">21 October 2026</time> · Travis John Villanueva</p>
+<h1>Too Good to Be True: Hunting for Data Leakage</h1>
+<p>There&#x27;s a moment every data person knows. You train a model, check the score, and it&#x27;s far better than you expected. The first reaction is a little thrill. With experience, the second reaction gets louder: what did I break?</p>
+<p>Most of the time the answer is <strong>data leakage</strong>. Information has crept into your training data that you wouldn&#x27;t actually have when the model makes a real prediction. The model isn&#x27;t clever. It&#x27;s peeking at the answers.</p>
+<h2>What leakage looks like</h2>
+<p>The textbook cases are easy to spot. The sneaky ones hide in features that look perfectly reasonable:</p>
+<ul>
+<li>A column that gets filled in after the event you&#x27;re predicting, like a status or outcome flag that&#x27;s updated later.</li>
+<li>Aggregates built over the whole dataset, future included, such as a &quot;season average&quot; that already counts games yet to be played.</li>
+<li>Rows from the same player, customer or event landing in both training and test, so the model memorises instead of generalising.</li>
+<li>Scaling or imputation fitted on all the data before the split.</li>
+</ul>
+<h2>🏀 An example from NoFlightZone</h2>
+<p>On my NBA analytics channel, <a href="https://www.youtube.com/@noflightzone-h6p" target="_blank" rel="noopener">NoFlightZone</a>, this trap is everywhere. Say you want to predict whether a team wins. Feed in full-game box-score stats like points, plus/minus or field goals made, and the model looks amazing. Of course it does, because those numbers are basically the final score in disguise. You&#x27;d never have them before tip-off.</p>
+<p>The honest version only uses what you&#x27;d know beforehand: form up to the previous game, rest days, home or away, and who&#x27;s available. The score drops, sometimes a lot, but it&#x27;s a real score.</p>
+<p>I fell into this one myself. I was building an L1 (lasso) regression on Spurs game data to find which features actually drive a win. I knew points were off limits, so I took the scores out and felt pretty pleased with myself. The model still looked brilliant. Then I spotted it: I&#x27;d left in plus/minus. Plus/minus tracks the score difference while a player is on court, so added up across the team it&#x27;s the final margin. The model hadn&#x27;t found what wins games. It had found the scoreboard. Once I took it out, the model got noticeably weaker, but now it was actually telling me something.</p>
+<h2>My leakage checklist</h2>
+<ol>
+<li><strong>The timestamp question.</strong> For every feature, ask whether you&#x27;d actually know that value at the exact moment of prediction.</li>
+<li><strong>Split by time.</strong> Train on the past and test on the future. A random split can quietly hand the model tomorrow&#x27;s information.</li>
+<li><strong>Watch feature importance.</strong> When one feature carries the whole model, treat it as a suspect, not a hero.</li>
+<li><strong>Fit inside the split.</strong> Scalers, encoders and imputers should learn from training data only.</li>
+<li><strong>Bug first, breakthrough second.</strong> If a simple model easily beats the experts or the baseline, assume something&#x27;s wrong until you&#x27;ve proved otherwise.</li>
+</ol>
+<h2>🤖 It happens with LLMs too</h2>
+<p>This links back to yesterday&#x27;s post about writing the test before the prompt. If examples from your golden eval set also turn up in your prompt&#x27;s few-shot examples, the prompt &quot;passes&quot; because it has already seen the answers. Keep your eval set apart from anything the model is shown, just like an untouched holdout set.</p>
+<h2>🧾 The accountant&#x27;s instinct</h2>
+<p>Back in my finance analyst days, reconciling eggs against planning reports at San Miguel Purefoods, a reconciliation that balanced perfectly on the first try never got a celebration. It got a second check. Real data is messy, and a result with no mess in it deserves a second look.</p>
+<p>If I had to explain this to a stakeholder, I&#x27;d keep it simple. The first score was like a student who&#x27;d seen the exam answers: impressive in the room, useless on the job. The new score is lower because it only uses what we&#x27;d really know before the game, which makes it the number we can trust when it counts. I&#x27;d much rather promise a modest result and deliver it than show off a great one that falls over the first time it meets real data.</p>
+<p>A smaller, honest number beats an impressive one that falls over in production, every time.</p>
+<p>📺 More NBA data breakdowns are on <a href="https://www.youtube.com/@noflightzone-h6p" target="_blank" rel="noopener">NoFlightZone</a>.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a> · <a href="../">Blog</a> · <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+<script>
+(function(){
+  var root=document.documentElement;
+  function current(){return root.getAttribute('data-theme')||'light';}
+  function apply(t){root.setAttribute('data-theme',t);document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-theme-btn')===t));});}
+  apply(current());
+  document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-theme-btn');apply(t);try{localStorage.setItem('travis-theme',t);}catch(e){}});});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var layers=[].slice.call(document.querySelectorAll('[data-parallax]'));
+  if(reduce||!layers.length||!('requestAnimationFrame' in window))return;
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var vh=window.innerHeight||800;
+    layers.forEach(function(el){
+      var host=el.parentElement.getBoundingClientRect();
+      var p=(host.top+host.height/2-vh/2)/vh; p=Math.max(-1,Math.min(1,p));
+      var rate=parseFloat(el.getAttribute('data-parallax'))||10;
+      el.style.transform='translate3d(0,'+(p*rate).toFixed(1)+'px,0)';
+    });
+  }
+  function request(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',request,{passive:true});
+  window.addEventListener('resize',request);
+  update();
+})();
+</script>
+</body></html>
