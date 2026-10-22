@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Is It Material? | Travis John Villanueva</title>
+<meta name="description" content="Strict data checks that cry wolf get muted; set a materiality threshold first so the alerts that matter actually get noticed.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Is It Material?">
+<meta property="og:description" content="Strict data checks that cry wolf get muted; set a materiality threshold first so the alerts that matter actually get noticed.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-23-is-it-material.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-23-is-it-material.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@300;500;600;700&display=swap" rel="stylesheet">
+<script>(function(){try{var t=localStorage.getItem('travis-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../">Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav>
+    <div class="theme-switcher" role="group" aria-label="Colour theme"><button type="button" data-theme-btn="light" aria-pressed="false">Light</button><button type="button" data-theme-btn="warm" aria-pressed="false">Warm</button><button type="button" data-theme-btn="dark" aria-pressed="false">Dark</button></div></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-23">23 October 2026</time> · Travis John Villanueva</p>
+<h1>Is It Material?</h1>
+<p>One of the first habits finance drills into you is to stop before you chase a number and ask whether it actually matters.</p>
+<p>Every reconciliation throws up differences. Some are timing, some are rounding, and once in a while one is a genuine mistake that would change what someone decides. Materiality is the discipline of telling them apart before you burn an afternoon. It isn&#x27;t laziness. It&#x27;s agreeing upfront on how big a difference has to be before it deserves anyone&#x27;s attention, and then sticking to it.</p>
+<p>Lately, alongside my day job, I&#x27;ve been spending more time on data science and AI engineering projects, and I keep running into the same problem under a different name: alert fatigue.</p>
+<h2>The zero-tolerance trap</h2>
+<p>When you first set up data quality tests, it&#x27;s tempting to make everything strict. Row counts must match exactly, there are no nulls anywhere, and every total ties to the cent. It feels rigorous. Then the alerts start. A late-arriving record trips the row count. A rounding difference in a currency conversion fails a total. After a week of noise, someone mutes the channel, and the next alert to fire is the real one: the day a source system quietly drops half its data.</p>
+<p>Strict checks that cry wolf end up weaker than sensible checks that people actually read.</p>
+<h2>Set the threshold before you look</h2>
+<p>In accounting, materiality is set before the audit starts, not after you&#x27;ve seen the numbers. That order matters. Pick the threshold after seeing the variance, and it&#x27;s very easy to talk yourself into &quot;that&#x27;s fine&quot;.</p>
+<p>I learned what materiality really feels like when I was working in Ortigas City and living out in Cavite City, a brutal two-hour bus ride each way. One Sunday afternoon I had to go into the office just to investigate and correct a variance of 500 PHP. Objectively, 500 PHP was a rounding error in the grand scheme of the ledger. But add a 100 PHP bus fare and four hours sitting in transit on my day off, and that 500 PHP felt deeply, painfully material. I gritted my teeth and made the trip, and it taught me a lasting lesson: context defines materiality.</p>
+<figure class="post-figure">
+<img src="../../images/ortigas-to-cavite-commute.jpg" alt="Google Maps transit route from Ortigas to Cavite City, about 2 hours 14 minutes" width="1077" height="909" loading="lazy">
+<figcaption>Two hours each way for a 500 PHP variance. Context defines materiality.</figcaption>
+</figure>
+<p>The same goes for pipelines and models. For each check, decide what counts as material and write it down:</p>
+<ul>
+<li>A total that&#x27;s out by a rounding amount gets a logged warning, not a page.</li>
+<li>A row count that&#x27;s down by more than normal late arrivals would explain fails the run.</li>
+<li>A key column that&#x27;s suddenly null for a whole partition stops everything.</li>
+</ul>
+<p>dbt makes this easy, because tests can be set to warn or error, with thresholds. The hard part isn&#x27;t the syntax. It&#x27;s having the conversation about what actually matters.</p>
+<h2>🤖 Materiality for LLM evals</h2>
+<p>This applies even more to LLM work. If your eval suite demands an exact string match, a model that rewords a correct answer &quot;fails&quot;, and soon nobody trusts the results. Decide what a material failure is, such as a wrong fact, a missing required field or a made-up source, and score those hard. Treat wording changes as immaterial unless tone is the thing you&#x27;re testing.</p>
+<h2>The takeaway</h2>
+<p>Materiality isn&#x27;t about caring less. It&#x27;s about protecting your attention so you notice the errors that really matter. Set the threshold first, match the alert level to it, and review it when the stakes change.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a> · <a href="../">Blog</a> · <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+<script>
+(function(){
+  var root=document.documentElement;
+  function current(){return root.getAttribute('data-theme')||'light';}
+  function apply(t){root.setAttribute('data-theme',t);document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-theme-btn')===t));});}
+  apply(current());
+  document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-theme-btn');apply(t);try{localStorage.setItem('travis-theme',t);}catch(e){}});});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var layers=[].slice.call(document.querySelectorAll('[data-parallax]'));
+  if(reduce||!layers.length||!('requestAnimationFrame' in window))return;
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var vh=window.innerHeight||800;
+    layers.forEach(function(el){
+      var host=el.parentElement.getBoundingClientRect();
+      var p=(host.top+host.height/2-vh/2)/vh; p=Math.max(-1,Math.min(1,p));
+      var rate=parseFloat(el.getAttribute('data-parallax'))||10;
+      el.style.transform='translate3d(0,'+(p*rate).toFixed(1)+'px,0)';
+    });
+  }
+  function request(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',request,{passive:true});
+  window.addEventListener('resize',request);
+  update();
+})();
+</script>
+</body></html>
