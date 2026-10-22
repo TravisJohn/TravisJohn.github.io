@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yesterday&#x27;s Truth | Travis John Villanueva</title>
+<meta name="description" content="When a dimension table overwrites changes, old reports quietly change too; a Type 2 slowly changing dimension keeps yesterday&#x27;s truth intact.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Yesterday&#x27;s Truth">
+<meta property="og:description" content="When a dimension table overwrites changes, old reports quietly change too; a Type 2 slowly changing dimension keeps yesterday&#x27;s truth intact.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-22-yesterdays-truth.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-22-yesterdays-truth.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@300;500;600;700&display=swap" rel="stylesheet">
+<script>(function(){try{var t=localStorage.getItem('travis-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../">Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav>
+    <div class="theme-switcher" role="group" aria-label="Colour theme"><button type="button" data-theme-btn="light" aria-pressed="false">Light</button><button type="button" data-theme-btn="warm" aria-pressed="false">Warm</button><button type="button" data-theme-btn="dark" aria-pressed="false">Dark</button></div></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-22">22 October 2026</time> · Travis John Villanueva</p>
+<h1>Yesterday&#x27;s Truth</h1>
+<p>Here&#x27;s a bug that never throws an error. You re-run last quarter&#x27;s report and the numbers have moved. Nobody touched the report and nobody changed the sales, yet the totals by region, category or team are different from what you presented three months ago.</p>
+<p>Nine times out of ten, the culprit is an overwrite.</p>
+<h2>The quiet overwrite</h2>
+<p>Most dimension tables (customers, products, stores, players) start life the simple way: one row per thing, holding its current attributes. When something changes, you update the row. A customer moves from Parramatta to Newcastle, so you update their suburb. Done.</p>
+<p>The catch is that every historical sale for that customer now looks like it happened in Newcastle. You didn&#x27;t just record a change. You rewrote the past.</p>
+<h2>🏀 An NBA version</h2>
+<p>I learned this the hard way in my NBA analytics project when the Mavericks traded Luka Dončić to the Lakers out of nowhere. Like every other basketball fan, I was stunned by the news—and about five minutes later, I realized my data pipeline wasn&#x27;t ready for it.</p>
+<figure class="post-figure">
+<img src="../../images/luka-lakers.jpg" alt="Luka Dončić in a Lakers warm-up jacket" width="960" height="642" loading="lazy">
+<figcaption>When the trade lands, your dimension table finds out too.</figcaption>
+</figure>
+<p>My player table only stored one row per player with their current team. The moment the update ran and flipped Luka to Los Angeles, every point, rebound, and efficiency metric he had logged in Dallas earlier that season was retroactively credited to the Lakers. Without the columns to track when he wore which jersey, team totals stopped tying out and lineup charts showed combinations that never existed. The data was &quot;correct&quot; today and wrong about every day before it.</p>
+<h2>Keep the history</h2>
+<p>The standard fix is a Type 2 slowly changing dimension. Instead of updating a row, you:</p>
+<ul>
+<li>close off the old version with a valid-to date,</li>
+<li>insert a new row with a valid-from date,</li>
+<li>keep an is-current flag so day-to-day queries stay easy.</li>
+</ul>
+<p>Then you join facts to the version that was valid at the time of the event, not just the latest one. A sale in March picks up the March address. A game in November picks up the November team.</p>
+<p>If you use dbt, snapshots handle most of this for you: point it at a source, tell it how to spot a change, and it keeps the history. The harder part isn&#x27;t the tooling. It&#x27;s deciding which attributes deserve history. A typo fix in a name probably doesn&#x27;t need a new version. A change of region almost certainly does.</p>
+<h2>🧾 The accountant in me agrees</h2>
+<p>In accounting, you don&#x27;t quietly restate a closed month. You make an adjusting entry and leave an audit trail, so anyone can see what was reported then and why it differs now. A Type 2 dimension is the same instinct written in SQL. A simple test: re-run a report for a closed period and check it still ties to what was originally reported. If it doesn&#x27;t, you&#x27;d better be able to explain why.</p>
+<h2>🤖 Why this matters for AI</h2>
+<p>Plenty of retrieval (RAG) setups just overwrite documents when policies change. That&#x27;s fine for &quot;what&#x27;s the rule today?&quot; but useless for &quot;what was the rule when this decision was made?&quot; If your assistant ever needs to explain past decisions, your knowledge base needs versions and effective dates, exactly like a dimension table.</p>
+<h2>The takeaway</h2>
+<p>Overwriting is the default because it&#x27;s easy. But the business rarely asks only &quot;what&#x27;s true now?&quot; It asks &quot;what was true then?&quot; Build for both, and your old reports will still say what they said the day you presented them.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a> · <a href="../">Blog</a> · <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+<script>
+(function(){
+  var root=document.documentElement;
+  function current(){return root.getAttribute('data-theme')||'light';}
+  function apply(t){root.setAttribute('data-theme',t);document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-theme-btn')===t));});}
+  apply(current());
+  document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-theme-btn');apply(t);try{localStorage.setItem('travis-theme',t);}catch(e){}});});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var layers=[].slice.call(document.querySelectorAll('[data-parallax]'));
+  if(reduce||!layers.length||!('requestAnimationFrame' in window))return;
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var vh=window.innerHeight||800;
+    layers.forEach(function(el){
+      var host=el.parentElement.getBoundingClientRect();
+      var p=(host.top+host.height/2-vh/2)/vh; p=Math.max(-1,Math.min(1,p));
+      var rate=parseFloat(el.getAttribute('data-parallax'))||10;
+      el.style.transform='translate3d(0,'+(p*rate).toFixed(1)+'px,0)';
+    });
+  }
+  function request(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',request,{passive:true});
+  window.addEventListener('resize',request);
+  update();
+})();
+</script>
+</body></html>
