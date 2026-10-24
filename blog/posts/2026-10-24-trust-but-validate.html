@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trust, But Validate | Travis John Villanueva</title>
+<meta name="description" content="LLM output that looks right isn&#x27;t always true, so check both its shape and its sense, and never let a failure pass through silently.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Trust, But Validate">
+<meta property="og:description" content="LLM output that looks right isn&#x27;t always true, so check both its shape and its sense, and never let a failure pass through silently.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-24-trust-but-validate.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-24-trust-but-validate.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@300;500;600;700&display=swap" rel="stylesheet">
+<script>(function(){try{var t=localStorage.getItem('travis-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../">Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav>
+    <div class="theme-switcher" role="group" aria-label="Colour theme"><button type="button" data-theme-btn="light" aria-pressed="false">Light</button><button type="button" data-theme-btn="warm" aria-pressed="false">Warm</button><button type="button" data-theme-btn="dark" aria-pressed="false">Dark</button></div></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-24">24 October 2026</time> · Travis John Villanueva</p>
+<h1>Trust, But Validate</h1>
+<p>There&#x27;s a moment in every LLM project when the output starts looking really good. The JSON is clean, the fields are all there, and the tone is spot on. That&#x27;s usually when I stop checking, and it&#x27;s exactly when I should check harder.</p>
+<h2>Well-formed isn&#x27;t the same as true</h2>
+<p>Language models are brilliant at producing things that look right. That&#x27;s literally what they&#x27;re trained to do. But &quot;looks right&quot; and &quot;is right&quot; are two different tests, and only one of them is free.</p>
+<p>🏀 Here&#x27;s a hypothetical I keep coming back to from the NBA analytics side of things. Say you ask a model to read a game recap and return each player&#x27;s points, rebounds and assists as JSON. The recap mentions points and assists for one player but says nothing about rebounds. A careful human would leave rebounds blank. A model, wanting to fill the template, might just pop in a plausible number. It passes the schema, the types are correct, and it&#x27;s still made up.</p>
+<h2>Treat it like a source system you don&#x27;t control</h2>
+<p>Data engineering gave me a simple mental model for this. If a vendor sent me a file every day, I wouldn&#x27;t load it straight into production. I&#x27;d check it at the door. LLM output deserves the same respect, maybe more, because a vendor file doesn&#x27;t get creative.</p>
+<p>So I split validation into two layers.</p>
+<p><strong>1. Shape checks.</strong> Is it valid JSON? Are the required fields present? Are numbers actually numbers? Are categories from the allowed list? Tools like Pydantic or JSON Schema, plus the structured-output features many model APIs now offer, handle a lot of this. This layer is cheap and catches the obvious breakages.</p>
+<p><strong>2. Sense checks.</strong> This is the layer people skip. Can each value be traced back to the input? If the model says 12 rebounds, does a &quot;12&quot; or &quot;twelve&quot; actually appear near that player&#x27;s name in the source text? Do the parts add up, so that player points sum to the team total when you have it? Is the answer within a believable range? None of this needs to be fancy. A few plain rules catch a surprising amount.</p>
+<h2>Decide what happens when it fails</h2>
+<p>Validation without a plan for failures is just a nicer error message. I like a simple ladder:</p>
+<ul>
+<li><strong>Retry once,</strong> ideally telling the model what failed (&quot;rebounds isn&#x27;t in the source text, so return null if it&#x27;s not stated&quot;).</li>
+<li><strong>Flag it for a human</strong> if it fails again. Don&#x27;t loop forever and burn tokens.</li>
+<li><strong>Never pass it through silently.</strong> A blank is honest. A confident guess is a liability.</li>
+</ul>
+<p>Then the important bit: every failure goes into my eval set. The weird inputs that tripped the model up today become tomorrow&#x27;s regression tests.</p>
+<h2>🧾 The accountant in me approves</h2>
+<p>This is really just vouching, the audit habit of taking a number in the report and tracing it back to the source document. If you can&#x27;t find the invoice, you don&#x27;t book the expense. If you can&#x27;t find the rebound in the recap, you don&#x27;t keep the number.</p>
+<h2>Where I&#x27;ve landed</h2>
+<p>I don&#x27;t think the goal is to distrust the model. It&#x27;s to make trust something the output earns at every step, not something it gets by default because the formatting is neat. Shape checks tell you it&#x27;s well-formed. Sense checks tell you it&#x27;s true. You need both.</p>
+<p>In our data pipelines—whether we’re processing high-volume event streams in BigQuery or running automated extraction layers—the silent failure is always worse than a hard crash. A pipeline crash wakes you up immediately; a hallucinated metric or a subtly invented field sneaks into a downstream dashboard and quietly ruins a stakeholder review.</p>
+<p>If we treat LLM orchestration with the same rigorous assertion testing and data contracts we apply to traditional ETL, we stop treating AI like magic and start treating it like a very fast, occasionally over-confident junior analyst whose work still needs a proper cross-check before it hits production.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a> · <a href="../">Blog</a> · <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+<script>
+(function(){
+  var root=document.documentElement;
+  function current(){return root.getAttribute('data-theme')||'light';}
+  function apply(t){root.setAttribute('data-theme',t);document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-theme-btn')===t));});}
+  apply(current());
+  document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-theme-btn');apply(t);try{localStorage.setItem('travis-theme',t);}catch(e){}});});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var layers=[].slice.call(document.querySelectorAll('[data-parallax]'));
+  if(reduce||!layers.length||!('requestAnimationFrame' in window))return;
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var vh=window.innerHeight||800;
+    layers.forEach(function(el){
+      var host=el.parentElement.getBoundingClientRect();
+      var p=(host.top+host.height/2-vh/2)/vh; p=Math.max(-1,Math.min(1,p));
+      var rate=parseFloat(el.getAttribute('data-parallax'))||10;
+      el.style.transform='translate3d(0,'+(p*rate).toFixed(1)+'px,0)';
+    });
+  }
+  function request(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',request,{passive:true});
+  window.addEventListener('resize',request);
+  update();
+})();
+</script>
+</body></html>
