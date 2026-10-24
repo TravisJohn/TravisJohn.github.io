@@ -36,6 +36,10 @@
 <h2>Treat it like a source system you don&#x27;t control</h2>
 <p>Data engineering gave me a simple mental model for this. If a vendor sent me a file every day, I wouldn&#x27;t load it straight into production. I&#x27;d check it at the door. LLM output deserves the same respect, maybe more, because a vendor file doesn&#x27;t get creative.</p>
 <p>So I split validation into two layers.</p>
+<figure class="post-figure">
+<img src="../../images/trust-but-validate-cartoon.jpg" alt="Cartoon of a data engineer wiring shape-check and sense-check alarms around a robot holding a sign saying the output looks good" width="1400" height="781" loading="lazy">
+<figcaption>Shape checks and sense checks: the alarm layer every LLM pipeline needs.</figcaption>
+</figure>
 <p><strong>1. Shape checks.</strong> Is it valid JSON? Are the required fields present? Are numbers actually numbers? Are categories from the allowed list? Tools like Pydantic or JSON Schema, plus the structured-output features many model APIs now offer, handle a lot of this. This layer is cheap and catches the obvious breakages.</p>
 <p><strong>2. Sense checks.</strong> This is the layer people skip. Can each value be traced back to the input? If the model says 12 rebounds, does a &quot;12&quot; or &quot;twelve&quot; actually appear near that player&#x27;s name in the source text? Do the parts add up, so that player points sum to the team total when you have it? Is the answer within a believable range? None of this needs to be fancy. A few plain rules catch a surprising amount.</p>
 <h2>Decide what happens when it fails</h2>
