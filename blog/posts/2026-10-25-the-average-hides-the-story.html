@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Average Hides the Story | Travis John Villanueva</title>
+<meta name="description" content="An average is a starting question, not an answer: check the spread, split it by slice, and ask who&#x27;s being averaged out.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Average Hides the Story">
+<meta property="og:description" content="An average is a starting question, not an answer: check the spread, split it by slice, and ask who&#x27;s being averaged out.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-25-the-average-hides-the-story.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-25-the-average-hides-the-story.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@300;500;600;700&display=swap" rel="stylesheet">
+<script>(function(){try{var t=localStorage.getItem('travis-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../">Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav>
+    <div class="theme-switcher" role="group" aria-label="Colour theme"><button type="button" data-theme-btn="light" aria-pressed="false">Light</button><button type="button" data-theme-btn="warm" aria-pressed="false">Warm</button><button type="button" data-theme-btn="dark" aria-pressed="false">Dark</button></div></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-25">25 October 2026</time> · Travis John Villanueva</p>
+<h1>The Average Hides the Story</h1>
+<p>There's something comforting about a single number. Someone asks how things are going, you give them the average, and everyone nods. It feels finished. But the longer I work with data, the more I treat an average as a question rather than an answer.</p>
+<h2>The mean can sit where nobody lives</h2>
+<p>The first habit is the simplest: before quoting an average, look at the distribution. A histogram takes seconds and tells you whether the average describes a typical case, or sits awkwardly between two very different groups. If half your customers spend a little and half spend a lot, the "average customer" might not exist at all. Medians, percentiles and a quick look at the tails often tell a more honest story than the mean on its own.</p>
+<h2>Split it before you trust it</h2>
+<p>The second habit is slicing. Break the number down by segment, by time period, by region, by whatever dimension actually drives behaviour. This is where the surprises live. Statisticians have a name for the most dramatic version, Simpson's paradox, where a trend shows up in every subgroup and then reverses once you combine them, because the groups are different sizes. You don't need to remember the name. You just need the reflex to ask, "Does this still hold when I split it?"</p>
+<h2>The slice that matters gets averaged out</h2>
+<p>The third habit is the one I think about most: who's being hidden? Averages are dominated by the biggest groups. A small segment can be doing something really important, good or bad, and barely move the overall number. It's often exactly the slice you most need to see.</p>
+<h2>A basketball example</h2>
+<p>In my NBA side project I see this all the time. A team's season-long net rating is one number, but underneath it are dozens of five-man lineups. Some are clearly winning their minutes and some are clearly losing theirs, and the overall figure blends them into something that describes none of them. The interesting analysis only starts when you break it apart, and small samples are a trap of their own at that point. (I dig into this kind of thing on my channel, <a href="https://youtube.com/@noflightzone-h6p" target="_blank" rel="noopener">NoFlightZone</a>.)</p>
+<h2>Same problem, new tools: LLM evals</h2>
+<p>This carries straight over into AI engineering. When you evaluate an LLM prompt or model, it's tempting to report one overall score. But if your eval set has categories, such as different question types, input formats or edge cases, the overall score can look healthy while one category is failing badly. Reporting results by slice, and watching the weakest slice instead of only the overall number, catches regressions the headline figure would hide.</p>
+<h2>The accountant in me agrees</h2>
+<p>None of this is new to anyone with a finance background. A budget can balance perfectly in total while individual lines are well over or under, and the offsets cancel out. That's why variance analysis goes line by line. Totals reassure; the detail informs.</p>
+<h2>The takeaway</h2>
+<p>When someone hands you an average, ask three things: what does the spread look like, what happens when I split it, and who's being averaged out? An average is where you start, not where you finish.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a> · <a href="../">Blog</a> · <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+<script>
+(function(){
+  var root=document.documentElement;
+  function current(){return root.getAttribute('data-theme')||'light';}
+  function apply(t){root.setAttribute('data-theme',t);document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-theme-btn')===t));});}
+  apply(current());
+  document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-theme-btn');apply(t);try{localStorage.setItem('travis-theme',t);}catch(e){}});});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var layers=[].slice.call(document.querySelectorAll('[data-parallax]'));
+  if(reduce||!layers.length||!('requestAnimationFrame' in window))return;
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var vh=window.innerHeight||800;
+    layers.forEach(function(el){
+      var host=el.parentElement.getBoundingClientRect();
+      var p=(host.top+host.height/2-vh/2)/vh; p=Math.max(-1,Math.min(1,p));
+      var rate=parseFloat(el.getAttribute('data-parallax'))||10;
+      el.style.transform='translate3d(0,'+(p*rate).toFixed(1)+'px,0)';
+    });
+  }
+  function request(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',request,{passive:true});
+  window.addEventListener('resize',request);
+  update();
+})();
+</script>
+</body></html>
