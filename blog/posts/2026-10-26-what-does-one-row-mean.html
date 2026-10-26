@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Does One Row Mean? | Travis John Villanueva</title>
+<meta name="description" content="Before you trust a total, ask what one row means: write the grain down, test it, and stop fan-out joins before they reach the dashboard.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What Does One Row Mean?">
+<meta property="og:description" content="Before you trust a total, ask what one row means: write the grain down, test it, and stop fan-out joins before they reach the dashboard.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-26-what-does-one-row-mean.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-26-what-does-one-row-mean.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@300;500;600;700&display=swap" rel="stylesheet">
+<script>(function(){try{var t=localStorage.getItem('travis-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../">Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav>
+    <div class="theme-switcher" role="group" aria-label="Colour theme"><button type="button" data-theme-btn="light" aria-pressed="false">Light</button><button type="button" data-theme-btn="warm" aria-pressed="false">Warm</button><button type="button" data-theme-btn="dark" aria-pressed="false">Dark</button></div></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-26">26 October 2026</time> · Travis John Villanueva</p>
+<h1>What Does One Row Mean?</h1>
+<p>There's a question I've started asking before I write a single line of SQL: what does one row in this table actually represent?</p>
+<p>It sounds almost too basic to bother with. But in data engineering it has a name, the grain, and a lot of the strangest bugs I've seen come back to nobody being clear about it.</p>
+<h2>The bug that doesn't throw an error</h2>
+<p>Most broken pipelines tell you they're broken. A failed job, a type error, a null where there shouldn't be one. Grain problems don't do you that courtesy.</p>
+<p>Take an NBA example from my side project. Say I've got one table at player-game grain (one row per player per game, with points, rebounds and minutes) and another at lineup-stint grain (one row for each stretch of time a five-man unit was on the floor). I want to see points next to lineup data, so I join them on player and game.</p>
+<p>The join runs fine. But every player-game row now gets repeated once for each stint that player was part of. A player who featured in several lineups has his points copied several times over. Sum it up and the team "scored" far more than the final score. No error, no warning, just a number that looks impressive and is completely wrong.</p>
+<p>That's a fan-out join, and it happens whenever you join two tables at different grains without thinking it through.</p>
+<h2>What I do about it now</h2>
+<ol>
+<li><strong>Write the grain down first.</strong> Before building a model I write one sentence in the description: "One row = one player, one game." If I can't write that sentence, I'm not ready to build the table.</li>
+<li><strong>Test it, don't trust it.</strong> In dbt that means a uniqueness test on the columns that define the grain, for example <code>player_id</code> plus <code>game_id</code>. If someone later adds a join that duplicates rows, the test fails before anyone sees the dashboard.</li>
+<li><strong>Count rows before and after joins.</strong> It's a simple habit. If a left join to a lookup table should leave the row count unchanged and it doesn't, something has fanned out.</li>
+<li><strong>Aggregate before you join.</strong> If I need lineup info next to player-game stats, I roll the stint table up to player-game grain first and then join like for like.</li>
+</ol>
+<figure class="post-figure">
+<img src="../../images/one-row-cartoon.jpg" alt="Soft neumorphic illustration: a single row of shapes labelled One Row breaks into pieces that fall into a dashboard of donut, bar and KPI tiles, with the KPI tile reading 1 row" width="1024" height="768" loading="lazy">
+<figcaption>Know what one row means. The dashboard will follow.</figcaption>
+</figure>
+<h2>The accountant in me recognises this</h2>
+<p>Back when I was reconciling in finance, the same rule applied without anyone calling it grain. You don't compare journal lines with invoice-level totals and expect them to agree. You bring both sides to the same level first, then reconcile. Data tables are no different. Mismatched levels make the numbers drift, and you're left explaining a variance that never really existed.</p>
+<h2>It matters for AI work too</h2>
+<p>Lately, outside my day role, I've been spending more time on AI engineering projects, and grain shows up there as well. In a retrieval (RAG) setup, the "row" is a chunk. Is one chunk a paragraph, a page, a whole document or a single Q&amp;A pair? Mix those carelessly and retrieval starts returning odd, overlapping or duplicated context, and the model confidently builds answers on top of it. Deciding what one chunk means is the same discipline as deciding what one row means.</p>
+<h2>The takeaway</h2>
+<p>Before you trust a total, ask what one row means, and make the pipeline prove it. It's the cheapest test you'll ever write, and it catches the bugs that never announce themselves.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a> · <a href="../">Blog</a> · <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+<script>
+(function(){
+  var root=document.documentElement;
+  function current(){return root.getAttribute('data-theme')||'light';}
+  function apply(t){root.setAttribute('data-theme',t);document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-theme-btn')===t));});}
+  apply(current());
+  document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-theme-btn');apply(t);try{localStorage.setItem('travis-theme',t);}catch(e){}});});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var layers=[].slice.call(document.querySelectorAll('[data-parallax]'));
+  if(reduce||!layers.length||!('requestAnimationFrame' in window))return;
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var vh=window.innerHeight||800;
+    layers.forEach(function(el){
+      var host=el.parentElement.getBoundingClientRect();
+      var p=(host.top+host.height/2-vh/2)/vh; p=Math.max(-1,Math.min(1,p));
+      var rate=parseFloat(el.getAttribute('data-parallax'))||10;
+      el.style.transform='translate3d(0,'+(p*rate).toFixed(1)+'px,0)';
+    });
+  }
+  function request(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',request,{passive:true});
+  window.addEventListener('resize',request);
+  update();
+})();
+</script>
+</body></html>
