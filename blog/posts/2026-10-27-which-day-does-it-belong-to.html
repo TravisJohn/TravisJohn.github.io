@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which Day Does It Belong To? | Travis John Villanueva</title>
+<meta name="description" content="Accounting cut-off for data: keep event time and load time, pick the business date on purpose, and catch late rows so totals land in the right period.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Which Day Does It Belong To?">
+<meta property="og:description" content="Accounting cut-off for data: keep event time and load time, pick the business date on purpose, and catch late rows so totals land in the right period.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-27-which-day-does-it-belong-to.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-27-which-day-does-it-belong-to.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@300;500;600;700&display=swap" rel="stylesheet">
+<script>(function(){try{var t=localStorage.getItem('travis-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../">Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav>
+    <div class="theme-switcher" role="group" aria-label="Colour theme"><button type="button" data-theme-btn="light" aria-pressed="false">Light</button><button type="button" data-theme-btn="warm" aria-pressed="false">Warm</button><button type="button" data-theme-btn="dark" aria-pressed="false">Dark</button></div></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-27">27 October 2026</time> · Travis John Villanueva</p>
+<h1>Which Day Does It Belong To?</h1>
+<p>In accounting there's a quiet little test that catches a lot of mistakes: cut-off. The question isn't "did this happen?" It's "did it happen in this period?" An invoice dated 30 June that gets entered on 2 July is real money, but if it lands in July, both years are wrong. Nobody made anything up. The numbers just landed in the wrong bucket.</p>
+<p>More recently, outside my day role, I've been spending more time on data science and AI engineering projects, and I keep running into the same problem in data. It's just harder to spot, because nobody calls it cut-off.</p>
+<h2>Event time vs load time</h2>
+<p>Most tables have at least two clocks: when the thing happened, and when the row arrived in the warehouse. If a daily report groups by the load time, the totals add up overall but drift between days. A busy Friday that loads on Saturday morning makes Friday look slow and Saturday look like a record. Every row is correct, and the story is still wrong.</p>
+<h2>Time zones make it worse</h2>
+<p>My NBA side project is a good example. A Spurs game that tips off on a US evening is already the next day in Sydney. If I take the timestamp at face value and convert it to my local date, games end up on the "wrong" day, and anything per-day, like rest days between games or back-to-backs, quietly breaks. The fix was to store the original timestamp in UTC and then pick a game date on purpose, using the local date where the game was played, because that's how the league and the fans think about it.</p>
+<h2>Late-arriving data</h2>
+<p>Some rows just turn up late. A correction, a delayed feed, a retry that finally works. If yesterday's total got locked in at midnight, the late rows either get dropped or end up in today. Accountants deal with this through accruals and an agreed close date. In a pipeline, the equivalent is reprocessing a short window (say the last few days) on every run, so late rows get slotted back into the right period. Once a period really is closed, any adjustment that comes in later should be visible, not silently restated.</p>
+<h2>The AI version</h2>
+<p>The same thing shows up in LLM work. If eval results or token costs are logged when a batch job finishes, a run started late Monday night shows up as Tuesday. Compare "Monday's prompt" with "Tuesday's prompt" and you might be comparing a mix of both. Logging the request time next to the completion time takes thirty seconds and saves a confusing afternoon.</p>
+<h2>What I try to do now</h2>
+<ul>
+<li>Keep both clocks: event time and load time, side by side.</li>
+<li>Store times in UTC and work out the business date with a rule I've written down.</li>
+<li>Decide the date rule before anyone builds a dashboard on top of it.</li>
+<li>Reprocess a small window on each run to catch late rows.</li>
+<li>Treat changes to a closed period as visible adjustments, not quiet edits.</li>
+</ul>
+<figure class="post-figure"><img src="../../images/cut-off-dbt-flowchart.jpg" alt="Flowchart: cut-off in dbt, from raw sales with both clocks, a Sydney business-date rule, incremental 3-day lookback for late rows, tests, then daily report or stop and alert; closed periods snapshotted" loading="lazy"></figure>
+
+<p>None of this is exciting. But it's the difference between a report that's "technically right" and one people can actually trust day to day. Getting the total right isn't enough if it's sitting in the wrong period.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a> · <a href="../">Blog</a> · <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+<script>
+(function(){
+  var root=document.documentElement;
+  function current(){return root.getAttribute('data-theme')||'light';}
+  function apply(t){root.setAttribute('data-theme',t);document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-theme-btn')===t));});}
+  apply(current());
+  document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-theme-btn');apply(t);try{localStorage.setItem('travis-theme',t);}catch(e){}});});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var layers=[].slice.call(document.querySelectorAll('[data-parallax]'));
+  if(reduce||!layers.length||!('requestAnimationFrame' in window))return;
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var vh=window.innerHeight||800;
+    layers.forEach(function(el){
+      var host=el.parentElement.getBoundingClientRect();
+      var p=(host.top+host.height/2-vh/2)/vh; p=Math.max(-1,Math.min(1,p));
+      var rate=parseFloat(el.getAttribute('data-parallax'))||10;
+      el.style.transform='translate3d(0,'+(p*rate).toFixed(1)+'px,0)';
+    });
+  }
+  function request(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',request,{passive:true});
+  window.addEventListener('resize',request);
+  update();
+})();
+</script>
+</body></html>
