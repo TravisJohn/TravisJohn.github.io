@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio | Travis John Villanueva</title>
+<meta name="description" content="Portfolio of Travis John Villanueva: Tableau dashboards and data storytelling work.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Portfolio | Travis John Villanueva">
+<meta property="og:description" content="Tableau dashboards and data storytelling.">
+<meta property="og:url" content="https://travisjohn.github.io/portfolio/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0f172a">
+<link rel="canonical" href="https://travisjohn.github.io/portfolio/">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Quicksand:wght@300;500;600;700&display=swap" rel="stylesheet">
+<script>(function(){try{var t=localStorage.getItem('travis-theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../">Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../#about">About</a></li><li><a href="../#experience">Experience</a></li><li><a href="../#projects">Projects</a></li><li><a href="./" aria-current="page">Portfolio</a></li><li><a href="../#skills">Skills</a></li><li><a href="../#education">Education</a></li><li><a href="../blog/">Blog</a></li><li><a href="../#contact" class="btn-sm">Contact</a></li>
+</ul></nav>
+    <div class="theme-switcher" role="group" aria-label="Colour theme"><button type="button" data-theme-btn="light" aria-pressed="false">Light</button><button type="button" data-theme-btn="warm" aria-pressed="false">Warm</button><button type="button" data-theme-btn="dark" aria-pressed="false">Dark</button></div></div></header>
+<style>
+.viz-card{padding:1.2rem}
+.viz-frame{width:100%;border-radius:24px;overflow:hidden;background:var(--surface);box-shadow:var(--in);padding:.5rem}
+.viz-frame .tableauPlaceholder{width:100%}
+.viz-frame img{max-width:100%;height:auto;display:block}
+.viz-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
+.viz-actions a{margin-top:0;padding-top:.7rem}
+.portfolio-list{display:grid;gap:2rem}
+</style>
+<main id="main">
+<section class="page-hero"><div class="wrap"><p class="eyebrow">Travis John Villanueva</p><h1>Portfolio</h1><p class="lede">Dashboards and data stories I've built, with the reasoning behind them.</p></div></section>
+<section><div class="wrap portfolio-list">
+<article class="card viz-card" id="afl-dashboard">
+<h3>AFL Attendance &amp; Performance</h3>
+<p class="tag">Tableau Public dashboard · AFL seasons 2012–2025</p>
+<p>An interactive Tableau dashboard on AFL crowds and team performance, built from the public Kaggle AFL dataset (match-level and player-level files) for a senior management audience.</p>
+<p class="stack">Tableau · data validation · reconciliation</p>
+<div class="viz-frame">
+<div class='tableauPlaceholder' id='viz1793086187125' style='position: relative'><noscript><a href='https://public.tableau.com/views/AFLAttendancePerformanceTravisVillanueva/Crowds'><img alt='AFL Attendance and Performance dashboard preview' src='https://public.tableau.com/static/images/AF/AFLAttendancePerformanceTravisVillanueva/Crowds/1_rss.png' style='border: none' /></a></noscript><object class='tableauViz' style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /><param name='embed_code_version' value='3' /><param name='site_root' value='' /><param name='name' value='AFLAttendancePerformanceTravisVillanueva&#47;Crowds' /><param name='tabs' value='yes' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;AF&#47;AFLAttendancePerformanceTravisVillanueva&#47;Crowds&#47;1.png' /><param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>
+<script>
+(function(){var d=document.getElementById('viz1793086187125');var v=d.getElementsByTagName('object')[0];v.style.width='100%';v.style.height=(d.offsetWidth>700?'850px':'1750px');var s=document.createElement('script');s.src='https://public.tableau.com/javascripts/api/viz_v1.js';v.parentNode.insertBefore(s,v);})();
+</script>
+</div>
+<div class="viz-actions"><a class="btn" href="https://public.tableau.com/views/AFLAttendancePerformanceTravisVillanueva/Crowds" target="_blank" rel="noopener">Open on Tableau Public →</a><a class="btn ghost" href="afl-dashboard-story/">Read the story behind it →</a></div>
+</article>
+<article class="card" id="afl-story">
+<h3>The AFL Dashboard: a story in data</h3>
+<p class="tag">Interactive walk-through · 13 slides with speaker notes</p>
+<p>A short, detective-style walk-through of how the AFL dashboard was built: joining a match-level file (2,879 games) with a player-level file (128,938 rows) without inflating crowds ~44×, six data traps found while profiling, the tests that lock them down, three key findings, and the limits of the data. The through-line: don't trust the numbers until you can prove them.</p>
+<p class="stack">Data profiling · grain &amp; joins · testing · Tableau</p>
+<a href="afl-dashboard-story/">View the walk-through →</a>
+</article>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../">Home</a> · <a href="../blog/">Blog</a> · <a href="./">Portfolio</a> · <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a> · <a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+<script>
+(function(){
+  var root=document.documentElement;
+  function current(){return root.getAttribute('data-theme')||'light';}
+  function apply(t){root.setAttribute('data-theme',t);document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.setAttribute('aria-pressed',String(b.getAttribute('data-theme-btn')===t));});}
+  apply(current());
+  document.querySelectorAll('[data-theme-btn]').forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-theme-btn');apply(t);try{localStorage.setItem('travis-theme',t);}catch(e){}});});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var layers=[].slice.call(document.querySelectorAll('[data-parallax]'));
+  if(reduce||!layers.length||!('requestAnimationFrame' in window))return;
+  var ticking=false;
+  function update(){
+    ticking=false;
+    var vh=window.innerHeight||800;
+    layers.forEach(function(el){
+      var host=el.parentElement.getBoundingClientRect();
+      var p=(host.top+host.height/2-vh/2)/vh; p=Math.max(-1,Math.min(1,p));
+      var rate=parseFloat(el.getAttribute('data-parallax'))||10;
+      el.style.transform='translate3d(0,'+(p*rate).toFixed(1)+'px,0)';
+    });
+  }
+  function request(){if(!ticking){ticking=true;requestAnimationFrame(update);}}
+  window.addEventListener('scroll',request,{passive:true});
+  window.addEventListener('resize',request);
+  update();
+})();
+</script>
+</body></html>
