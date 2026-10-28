@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Check the Retrieval First | Travis John Villanueva</title>
+<meta name="description" content="When a RAG answer goes wrong, check whether the right passage was retrieved before rewriting the prompt. Plans for testing retrieval in WhitePaper.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Check the Retrieval First">
+<meta property="og:description" content="When a RAG answer goes wrong, check whether the right passage was retrieved before rewriting the prompt. Plans for testing retrieval in WhitePaper.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-28-check-the-retrieval-first.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-28-check-the-retrieval-first.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%237A68F0' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../"><span class="mark" aria-hidden="true">TV</span>Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../portfolio/">Portfolio</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-28">28 October 2026</time> · Travis John Villanueva</p>
+<h1>Check the Retrieval First</h1>
+<p>When an AI assistant gives a wrong answer, my first instinct used to be changing the prompt. Add a stricter instruction. Tell it to use only the provided context. Run it again.</p>
+<p>Sometimes that helps. But with retrieval-augmented generation (RAG), the problem may have happened before the model received the question. If the right passage never reached it, prompt wording cannot bring that passage back.</p>
+<p>That’s the principle guiding my next experiment with <a href="https://whitepaper-psi.vercel.app/" target="_blank" rel="noopener">WhitePaper</a>, a collection of sourced, interactive learning papers I’m building across AI, cloud and data engineering.</p>
+<figure class="post-figure"><video controls playsinline preload="metadata" poster="../../images/check-the-retrieval-first-poster.jpg" style="width:100%;height:auto;display:block;border-radius:inherit"><source src="../../images/check-the-retrieval-first.mp4" type="video/mp4">Your browser does not support embedded video.</video></figure>
+<h2>Look at what was retrieved</h2>
+<p>When a RAG answer goes wrong, I want to see the full trail: the question, the passages retrieved, the context sent to the model and the answer it produced.</p>
+<p>The first check is simple: <strong>was the evidence needed to answer the question actually there?</strong></p>
+<p>If it was missing from the search results, I would investigate the content and retrieval process. If it appeared in the results but was dropped before the model saw it, I would investigate how the context was assembled. If the model received it and still answered incorrectly, then I would look at the generation step.</p>
+<p>Those are different failures, and each needs a different fix.</p>
+<h2>Test retrieval before connecting a model</h2>
+<p>WhitePaper already organises its papers into topics, pages and passages. It does <strong>not</strong> have live RAG today. My plan is to start with one subject collection, turn its papers into searchable sections, and keep every section linked to its heading, sources and place in the reader.</p>
+<p>Then I’ll write a small set of questions paired with the passages that should answer them. For each question, I’ll inspect the top search results. Did the supporting passage appear? Was it the right version? If the answer needs two passages, did retrieval find both?</p>
+<p>This lets me improve the search before asking a model to write anything.</p>
+<h2>Let the answer acknowledge a gap</h2>
+<p>Once retrieval is working, I want readers to be able to ask questions across the papers and follow an answer back to its supporting passages.</p>
+<p>I also want an honest response when the collection cannot support an answer: “I couldn’t find that in these papers.” That is more useful than a confident guess. It tells the reader where the limit is, and it tells me where the collection may need work.</p>
+<h2>The habit underneath it</h2>
+<p>Back when I was a finance analyst reconciling eggs against planning reports at San Miguel Purefoods, I learned to check the source before rewriting the report. A missing or mistimed input could make the final number look wrong.</p>
+<p>I’m bringing that habit to WhitePaper: check the evidence first, then examine what the model did with it.</p>
+<p><strong>I’m looking for a few early testers</strong> who are learning AI, cloud or data engineering. You can <a href="https://whitepaper-psi.vercel.app/" target="_blank" rel="noopener">explore WhitePaper now</a>. If you’d like to help shape the upcoming RAG pilot, send me a message and tell me what question you’d want it to answer.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a><a href="../">Blog</a><a href="../../portfolio/">Portfolio</a><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a><a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
