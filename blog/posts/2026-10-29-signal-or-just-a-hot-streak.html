@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Signal or Just a Hot Streak? | Travis John Villanueva</title>
+<meta name="description" content="A five-game hot streak and a one-question eval jump are both small samples. Check the count, the usual wobble and the spread before calling it signal.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Signal or Just a Hot Streak?">
+<meta property="og:description" content="A five-game hot streak and a one-question eval jump are both small samples. Check the count, the usual wobble and the spread before calling it signal.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-29-signal-or-just-a-hot-streak.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-29-signal-or-just-a-hot-streak.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%237A68F0' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../"><span class="mark" aria-hidden="true">TV</span>Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../portfolio/">Portfolio</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-29">29 October 2026</time> · Travis John Villanueva</p>
+<h1>Signal or Just a Hot Streak?</h1>
+<p>Every NBA season has the same story. A role player strings together five big shooting nights, the highlight clips go round, and by the weekend he’s being talked about as a breakout. Sometimes he is. More often, a few weeks later, he’s back to roughly where he was. Nothing went wrong. Five games just wasn’t enough to tell us much.</p>
+<p>I see this in my own work far more than I’d like to admit. And it isn’t only basketball.</p>
+<h2>The eval that “improved”</h2>
+<p>Say I’ve got a small golden set of 20 test questions for an LLM prompt. I change the wording, rerun it, and the score goes from 80% to 85%. That feels like progress. But with 20 questions, 5% is one question. One example flipped. Run it again with a bit of randomness in the model and it might flip back. If I’d tweaked the prompt in the other direction, I could easily have seen the same kind of jump.</p>
+<p>That doesn’t make small eval sets useless. They’re a great smoke test. But a one-example change is a reason to look closer, not a reason to celebrate.</p>
+<h2>The month that “blew out”</h2>
+<p>Back in my finance days, one month’s variance could spark a whole chain of emails. Sometimes there really was a story. Other times it was timing, a one-off, or just the normal wobble you’d see if you lined up the last twelve months side by side. The question I learned to ask first was: is this unusual compared to the usual swings, or does it only look unusual because I’m staring at one number?</p>
+<h2>What I try to do now</h2>
+<ul>
+<li><strong>Count what’s behind the number.</strong> Before I react to a percentage, I want to know whether it’s 20 examples, 200 or 2,000. The smaller it is, the more a few cases can swing it.</li>
+<li><strong>Look at the range, not just the point.</strong> If I can, I rerun the eval a few times, or I look at how much the metric normally moves week to week. A change that sits inside the usual wobble isn’t news yet.</li>
+<li><strong>Expect things to drift back.</strong> Extreme results tend to drift back towards normal on their own. That’s regression to the mean. If I only investigate the best and worst weeks, I’ll keep “finding” causes that were really just luck.</li>
+<li><strong>Grow the sample where it matters.</strong> If a decision hangs on it, add more test cases, wait for more games, or pull a longer history before changing anything.</li>
+<li><strong>Write down what would change my mind.</strong> Deciding ahead of time “I’ll believe this if it holds over the next X” stops me from moving the goalposts later.</li>
+</ul>
+<h2>Why it matters for AI work</h2>
+<p>With LLMs, everything feels fast and iterative: change a prompt, rerun, ship. That speed makes it really tempting to chase noise. A few lucky runs can push you towards a prompt that isn’t actually better, and the cost shows up later, when real users hit the cases your 20 examples never covered.</p>
+<p>On my NBA analytics channel, NoFlightZone (<a href="https://www.youtube.com/@noflightzone-h6p" target="_blank" rel="noopener">youtube.com/@noflightzone-h6p</a>), I try to hold myself to the same rule: if a hot streak is the whole story, I say it’s early.</p>
+<p>Small samples are loud. Real signal tends to stick around.</p>
+<h2>A real case: Dylan Harper</h2>
+<p>I put this thinking to work on my channel, NoFlightZone, in a case study on Dylan Harper, the Spurs’ second-year guard (<a href="https://youtu.be/Yyv_1wUWoqU" target="_blank" rel="noopener">watch it here</a>).</p>
+<p>The usual pattern across the league is easy to guess. Free throws are the consistent shot. Same spot, no defender, same routine every time. Threes swing much more from night to night.</p>
+<p>Harper didn’t fit that pattern. His three-point shooting was the steadier of the two, and his free throws moved around more than you’d expect.</p>
+<p>That’s exactly the kind of finding a small sample can fake in either direction. A few cold nights at the line can make a solid shooter look shaky, and a hot run from deep can make anyone look like a sniper. So before I called it, I looked at how much each one normally varies, not just the averages. The pattern held, and that’s what made it worth a video.</p>
+<figure class="post-figure"><div style="position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:inherit"><iframe src="https://www.youtube-nocookie.com/embed/Yyv_1wUWoqU" title="NoFlightZone: Dylan Harper case study" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></figure>
+<p>The lesson I keep coming back to is that the interesting story is often in the <em>spread</em>, not the average.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a><a href="../">Blog</a><a href="../../portfolio/">Portfolio</a><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a><a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
