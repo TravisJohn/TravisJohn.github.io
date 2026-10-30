@@ -31,6 +31,7 @@
 <p>There’s a particular kind of calm that settles in when every task in the DAG turns green. Inbox clear. Nightly job done. You can close the laptop.</p>
 <p>I’ve learned not to trust that calm on its own.</p>
 <p>A green run means the orchestration finished without throwing. It does not mean the right rows landed, in the right shape, at the right time. Empty files still “succeed.” A renamed source column can coerce to nulls without failing the SQL. A duplicate key can sail through if nobody asked for uniqueness. The scheduler is happy. Your dashboard is quietly wrong.</p>
+<figure class="post-figure"><img src="../../images/green-run-cartoon.jpg" alt="Cartoon: a relaxed data engineer points at a pipeline monitor showing all seven steps green while goblins sneak off with a box of 0 rows and a sack of nulls. Tagline: The run succeeded. The data didn’t." loading="lazy"></figure>
 <p>So I treat the green tick as “the engine ran,” not “the data is fine.” After the job, I want a short checklist that behaves more like a reconciliation than a status light:</p>
 <ol>
 <li><strong>Row count:</strong> against yesterday, and against a floor that would be absurd to miss on a normal day.</li>
