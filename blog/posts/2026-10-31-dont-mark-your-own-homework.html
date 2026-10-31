@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Don’t Mark Your Own Homework | Travis John Villanueva</title>
+<meta name="description" content="Accounting’s maker-checker control, applied to pipelines, SQL, prompts, LLM judges and model validation, plus how to keep it when you’re a team of one.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Don’t Mark Your Own Homework">
+<meta property="og:description" content="Accounting’s maker-checker control, applied to pipelines, SQL, prompts, LLM judges and model validation, plus how to keep it when you’re a team of one.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-10-31-dont-mark-your-own-homework.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-10-31-dont-mark-your-own-homework.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%237A68F0' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../"><span class="mark" aria-hidden="true">TV</span>Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../portfolio/">Portfolio</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-10-31">31 October 2026</time> · Travis John Villanueva</p>
+<h1>Don’t Mark Your Own Homework</h1>
+<p>One of the first controls you learn in accounting is segregation of duties. The person who sets up a supplier shouldn’t be the one who pays them. The person who raises a journal shouldn’t be the one who approves it. It’s sometimes called maker-checker: one person makes, another checks.</p>
+<p>It isn’t because everyone’s dodgy. It’s because the person who did the work is the worst-placed person to spot what’s wrong with it. You know what you meant to do, so that’s what you see when you look back over it.</p>
+<p>More recently, outside my day role, I’ve been spending more time on data science and AI engineering projects, and I keep noticing how often this control is missing.</p>
+<h2>Where the maker is also the checker</h2>
+<p><strong>Pipelines that grade themselves.</strong> A job finishes, writes “success” to its own log, and that’s taken as proof the data is good. But the job only knows what it was told to check. An independent check, like comparing row counts or control totals back to the source system, catches the things the job’s author never thought of.</p>
+<p><strong>SQL and prompts with one reviewer: the author.</strong> A join that fans out, a filter that quietly drops a category, or a prompt tweak that fixes one case and breaks three others. These are easy to miss in your own work and surprisingly obvious to someone reading it fresh. Even a quick review from a colleague changes the odds.</p>
+<p><strong>LLMs judging LLMs.</strong> Using a model to score outputs is handy, but if the same model wrote the answer and grades it, you’ve rebuilt the problem accounting solved decades ago. A model can be biased toward its own style of answer. A different model as the judge, plus regular human spot checks on a sample, keeps it honest.</p>
+<p><strong>Models tested on what they were tuned on.</strong> This is the data science version. If you keep tweaking features until the validation score looks great, that validation set has quietly become training data. You’ve marked your own homework. A final holdout set you only look at once is the checker.</p>
+<h2>Making it practical when you’re a team of one</h2>
+<p>On side projects there often isn’t a second person, and that’s where I’ve had to get creative:</p>
+<ul>
+<li><strong>Separate the check from the build in time.</strong> Write the tests before the code, while you still don’t know what the answer “should” be.</li>
+<li><strong>Check against something outside the system.</strong> For my NBA analytics project, that means checking team totals against an official box score rather than against my own earlier tables.</li>
+<li><strong>Make the checker a different tool.</strong> Use a different model as judge, or a plain rule-based check alongside the LLM one.</li>
+<li><strong>Sleep on it.</strong> Reviewing your own work the next morning is a weak version of a second person, but it’s a lot better than nothing.</li>
+</ul>
+<h2>The takeaway</h2>
+<p>Segregation of duties exists because good people make honest mistakes, and those mistakes are invisible from the inside. Whatever you build, a pipeline, a model or a prompt, ask yourself one question: who, or what, checks this other than the thing that made it? If the answer is “the same thing,” you’ve found your next control to add.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a><a href="../">Blog</a><a href="../../portfolio/">Portfolio</a><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a><a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
