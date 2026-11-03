@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who’s Missing From Your Data? | Travis John Villanueva</title>
+<meta name="description" content="Survivorship bias in hiring, AI feedback, evals, RAG, NBA lineups and invoices: before trusting a result, ask how each row got into the data.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Who’s Missing From Your Data?">
+<meta property="og:description" content="Survivorship bias in hiring, AI feedback, evals, RAG, NBA lineups and invoices: before trusting a result, ask how each row got into the data.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-11-03-whos-missing-from-your-data.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-11-03-whos-missing-from-your-data.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%237A68F0' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../"><span class="mark" aria-hidden="true">TV</span>Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../portfolio/">Portfolio</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-11-03">3 November 2026</time> · Travis John Villanueva</p>
+<h1>Who’s Missing From Your Data?</h1>
+<p>There’s a question I’ve started asking before I trust any chart, model or eval score: how did each row get here?</p>
+<p>It sounds like admin. It isn’t. Most of the misleading results I’ve seen weren’t caused by bad maths. They came from a dataset that quietly filtered itself before anyone looked at it.</p>
+<h2>The hiring version</h2>
+<p>I’ve seen this from both sides of a CV. Many roles get filtered on skills people have already shown on paper. So when a company later looks at “who succeeds here”, the data only ever includes people who matched the checklist. The conclusion writes itself: everyone who succeeds here already had the skills.</p>
+<p>But the fast learners, the career changers, and the people who would have grown into the role never got the interview. They aren’t in the data, so the data can never argue for them.</p>
+<figure class="post-figure"><img src="../../images/complete-list-cartoon.jpg" alt="Cartoon: a manager unrolls an endless job requirements scroll at a worried ‘fast learner’ candidate under a ‘Now hiring (for 14 months)’ sign" loading="lazy"></figure>
+<p>That’s survivorship bias, and it has relatives in selection bias and response bias. They all come down to the same thing: the process that collects your data is also shaping your answer.</p>
+<h2>Where it shows up in AI work</h2>
+<ul>
+<li><strong>Feedback buttons.</strong> Thumbs up and thumbs down only come from people who engaged. Someone who got a useless answer and closed the tab leaves no signal. A rising satisfaction score can mean the tool improved, or it can mean the unhappy users left.</li>
+<li><strong>Evals built from logs.</strong> Building a test set from real user questions is great practice, but those logs are what people asked after deciding the tool was worth asking. The questions they stopped asking are missing.</li>
+<li><strong>RAG coverage.</strong> If you only test questions your documents can answer, retrieval will look brilliant. The gaps are in the questions nobody wrote down.</li>
+</ul>
+<h2>The NBA version</h2>
+<p>In my NoFlightZone Spurs analytics project, lineup data is a nice trap. Lineups that play lots of minutes tend to look good, partly because coaches keep playing lineups that are already working and bench the ones that aren’t. A lineup that got only a handful of minutes never had the chance to prove itself either way.</p>
+<h2>The accounting version</h2>
+<p>From my finance days: if you only review the invoices that got approved and paid, everything looks tidy. The interesting ones are often those that were rejected, held, or never entered at all. A reconciliation that only checks what’s in the system can’t find what never made it in.</p>
+<h2>What I actually do now</h2>
+<ol>
+<li><strong>Write down the entry path.</strong> Before analysing, I note in one sentence what has to happen for a row to exist, for example “a candidate matched the checklist and got an interview”.</li>
+<li><strong>Compare to the full population.</strong> How many people or events could be in the data versus how many are? A big gap is a warning, not a footnote.</li>
+<li><strong>Go looking for the drop-offs.</strong> Sample the applicants who were screened out, the sessions that ended after one message, the lineups that barely played.</li>
+<li><strong>Phrase conclusions with the filter attached.</strong> “Among people we interviewed…” is less exciting but much more honest.</li>
+</ol>
+<p>None of this needs fancy tooling. It’s a habit of being suspicious about where your rows came from.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a><a href="../">Blog</a><a href="../../portfolio/">Portfolio</a><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a><a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
