@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Happens If It Runs Twice? | Travis John Villanueva</title>
+<meta name="description" content="Idempotency for pipelines, invoices and RAG: a rerun should be a non-event. Upsert on keys, rebuild partitions and make duplicates fail loudly.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What Happens If It Runs Twice?">
+<meta property="og:description" content="Idempotency for pipelines, invoices and RAG: a rerun should be a non-event. Upsert on keys, rebuild partitions and make duplicates fail loudly.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-11-04-what-happens-if-it-runs-twice.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-11-04-what-happens-if-it-runs-twice.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%237A68F0' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../"><span class="mark" aria-hidden="true">TV</span>Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../portfolio/">Portfolio</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-11-04">4 November 2026</time> · Travis John Villanueva</p>
+<h1>What Happens If It Runs Twice?</h1>
+<h2>The wall with one wrong row</h2>
+<p>Picture two bricklayers finishing a wall that winds off to the horizon, like a small Great Wall. One of them stops, squints, and points: “That row’s the wrong brick. It’s light red.”</p>
+<p>The other one, trowel in hand and nearly done, says what we’ve all said at some point: “Replace the whole layer??! I’m almost finished!”</p>
+<figure class="post-figure"><img src="../../images/runs-twice-cartoon.jpg" alt="Cartoon: a bricklayer on a long winding wall is told one row is the wrong light-red brick and protests about replacing the whole layer" loading="lazy"></figure>
+<p>With real bricks, fixing one row means tearing down everything above it. With data, it shouldn’t. A well-built pipeline lets you pull out just the broken layer, such as Tuesday’s load, and slide in a fixed one. Run that fix once or five times and you still end up with exactly one correct Tuesday. Engineers call that <strong>idempotency</strong>: repeating the job doesn’t stack extra copies on top.</p>
+<p>There’s a question I’ve started asking about every pipeline I touch, and it’s a bit of a buzzkill: what happens if this runs twice?</p>
+<p>Not “if it fails”, because we’re usually good at planning for that. I mean what happens if it succeeds twice. A scheduler retries after a timeout. Someone reruns it manually because a dashboard looked off. A backfill overlaps with the regular nightly load. None of these are exotic. They’re a normal Tuesday.</p>
+<p>If the honest answer is “we’d get double the rows”, then the pipeline works only as long as nobody ever touches it. That’s not a pipeline, it’s a held breath.</p>
+<h2>The accounting version of this</h2>
+<p>In finance, everyone knows the nightmare of the duplicate invoice: the same bill entered twice, paid twice, and nobody notices until the reconciliation doesn’t tie. Good processes stop it at the door with invoice numbers, supplier and amount checks, and controls that say “we’ve seen this one already”. Data engineering has a fancy word for that same instinct: idempotency. Running it once or five times should give you the same result.</p>
+<h2>The AI version</h2>
+<p>RAG systems have the same trap. Re-ingest your documents into a vector store without a stable ID per chunk and you end up with three copies of everything. Retrieval then fills the top results with the same paragraph, crowding out the stuff that would have actually answered the question.</p>
+<h2>What I try to do now</h2>
+<ol>
+<li><strong>Write to a key, not just a table.</strong> Merge or upsert on a natural key (game ID plus player ID, invoice number, document ID plus chunk number) so a repeat updates rather than adds.</li>
+<li><strong>Rebuild partitions, don’t stack them.</strong> For daily loads, delete that day’s slice and reload it. Rerunning Tuesday replaces Tuesday.</li>
+<li><strong>Make duplicates fail loudly.</strong> A uniqueness test on the key turns a silent double-count into an obvious red flag.</li>
+<li><strong>Rerun it on purpose.</strong> Before trusting a job, run it twice in a test environment and check that the row counts and totals don’t budge. It’s boring, and that’s the point.</li>
+<li><strong>Think about side effects.</strong> Emails, API calls and payments can’t be “upserted”. Track what’s already been sent.</li>
+</ol>
+<p>The goal is simple: a rerun should be a non-event. If pressing the button again makes you nervous, the pipeline is telling you something.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a><a href="../">Blog</a><a href="../../portfolio/">Portfolio</a><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a><a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
