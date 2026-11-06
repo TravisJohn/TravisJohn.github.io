@@ -62,6 +62,8 @@ GROUP BY player_name;</code></pre>
   AI.AGG(scout_note, 'Summarise this player in two sentences.') AS summary
 FROM `my_project.nba.game_notes`
 GROUP BY player_name;</code></pre>
+<figure class="post-figure"><img src="../../images/sql-opinions-table.jpg" alt="My wish: illustrative AI.AGG output by state with a trust score column; TAS at 31%" loading="lazy"></figure>
+
 <p>If a player’s trust score is 0.45, more than half his notes never made it into the summary, and that’s worth knowing before anyone quotes it. From there you could layer on more signals, like how similar the rows are to each other or how much the summary changes between reruns. Nulls are just the honest first step.</p>
 <p>To be clear, this isn’t a Google feature. It’s my own wish list. But it’s the same instinct as a reconciliation: don’t just give me the answer, tell me how much of the source it actually ties back to.</p>
 <h2>Does it tie back to the source?</h2>
