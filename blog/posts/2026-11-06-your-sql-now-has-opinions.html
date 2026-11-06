@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your SQL Now Has Opinions | Travis John Villanueva</title>
+<meta name="description" content="BigQuery’s AI.AGG turns GROUP BY into plain-English summaries. Why I’d add a trust score per group, and how to check semantic aggregates against the source.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Your SQL Now Has Opinions">
+<meta property="og:description" content="BigQuery’s AI.AGG turns GROUP BY into plain-English summaries. Why I’d add a trust score per group, and how to check semantic aggregates against the source.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-11-06-your-sql-now-has-opinions.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-11-06-your-sql-now-has-opinions.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%237A68F0' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../"><span class="mark" aria-hidden="true">TV</span>Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../portfolio/">Portfolio</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-11-06">6 November 2026</time> · Travis John Villanueva</p>
+<h1>Your SQL Now Has Opinions</h1>
+<p>This week Google previewed a new BigQuery function called <a href="https://cloud.google.com/blog/products/data-analytics/semantic-data-aggregation-with-bigquery-and-ai-agg" target="_blank" rel="noopener">AI.AGG</a>. You write a normal SQL query, add a <code>GROUP BY</code>, and instead of <code>SUM()</code> or <code>COUNT()</code> you pass a plain-English instruction. BigQuery hands the text to a Gemini model and gives you back one written summary per group, even across millions of rows.</p>
+<p>For anyone who has spent years writing deterministic SQL, that’s a strange and exciting sentence.</p>
+<h2>What it looks like</h2>
+<pre><code>SELECT
+  player_name,
+  COUNT(*) AS games,
+  AI.AGG(
+    STRUCT(game_date, IFNULL(scout_note, 'No note')),
+    'These are game notes for one player. In two sentences, describe their main strengths and weaknesses. Only use what is in the notes; say "not enough data" if unsure.'
+  ) AS season_summary
+FROM `my_project.nba.game_notes`
+WHERE season = '2025-26'
+GROUP BY player_name;</code></pre>
+<p>Behind the scenes it batches the rows, summarises each batch, then summarises those summaries until each group has one answer.</p>
+<h2>The fine print is where the lessons are</h2>
+<ul>
+<li><strong>NULLs quietly drop rows.</strong> If any field you pass in is NULL, the whole row is discarded without telling you. That’s survivorship bias in a single line of SQL.</li>
+<li><strong>“Succeeded” doesn’t mean “complete”.</strong> Failed batches are skipped rather than crashing the query, and <code>max_error_ratio</code> controls how much loss you’ll tolerate.</li>
+<li><strong>The bill can be bigger than your data.</strong> You pay for model tokens, not bytes scanned, and the layered summarising sends more tokens than your source text contains. Filter hard and estimate with <code>AI.COUNT_TOKENS</code> first.</li>
+<li><strong>It’s not idempotent the way <code>SUM()</code> is.</strong> Rerun a summary and the wording can change. Store outputs with the run time and model version.</li>
+</ul>
+<h2>My wish list: a trust score per group</h2>
+<p>Here’s where I’d push it further. Right now each group gives you a count and a confident-sounding comment. In an ideal world, I’d want a third column next to them: <strong>a trust score.</strong></p>
+<p>A summary of 300 clean, consistent notes and a summary of 40 patchy notes, half of them dropped, come back looking equally sure of themselves. They shouldn’t. The reader deserves to know how much to believe each one.</p>
+<p>I’d define it like a cohesion measure. If 80% of the data points in a group sit close together, meaning they’re clean, consistent and explainable, the summary has earned a high score. If the group is scattered or full of holes, the score drops and the summary gets read with a raised eyebrow.</p>
+<p>The easiest place to start is nulls, because you can measure them today:</p>
+<pre><code>SELECT
+  player_name,
+  COUNT(*) AS total_rows,
+  COUNTIF(scout_note IS NOT NULL) AS usable_rows,
+  ROUND(COUNTIF(scout_note IS NOT NULL) / COUNT(*), 2) AS trust_score,
+  AI.AGG(scout_note, 'Summarise this player in two sentences.') AS summary
+FROM `my_project.nba.game_notes`
+GROUP BY player_name;</code></pre>
+<p>If a player’s trust score is 0.45, more than half his notes never made it into the summary, and that’s worth knowing before anyone quotes it. From there you could layer on more signals, like how similar the rows are to each other or how much the summary changes between reruns. Nulls are just the honest first step.</p>
+<p>To be clear, this isn’t a Google feature. It’s my own wish list. But it’s the same instinct as a reconciliation: don’t just give me the answer, tell me how much of the source it actually ties back to.</p>
+<h2>Does it tie back to the source?</h2>
+<ol>
+<li><strong>Sample the source.</strong> Read a handful of underlying rows for a few groups.</li>
+<li><strong>Keep a small eval set.</strong> Groups where you know the right answer, rerun after every change.</li>
+<li><strong>Ask it to admit gaps.</strong> Tell it to say “not enough data” rather than guess.</li>
+<li><strong>Log what went in.</strong> Row counts per group, the time window, and now the trust score.</li>
+</ol>
+<h2>Where I’d try it</h2>
+<p>For NoFlightZone, summarising a season of game notes per player is exactly what this is built for. It’s also exactly where a model could confidently describe a game that never happened. So I’d use it to draft, check the trust score, then check against the box scores before anything goes in a video.</p>
+<h2>The takeaway</h2>
+<p>AI.AGG will make semantic analysis feel as normal as a <code>GROUP BY</code>. But a count and a comment aren’t enough on their own. Tell me how much to trust each one.</p>
+<p>New tools, same old rule: trust it once you can check it.</p>
+<p>If you want to see the basketball side of this, check out <a href="https://youtube.com/@noflightzone-h6p" target="_blank" rel="noopener">NoFlightZone</a> on YouTube.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a><a href="../">Blog</a><a href="../../portfolio/">Portfolio</a><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a><a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
