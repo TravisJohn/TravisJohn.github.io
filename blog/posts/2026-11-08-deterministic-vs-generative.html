@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deterministic vs Generative: Who Should Hold the Pen? | Travis John Villanueva</title>
+<meta name="description" content="AWS now lets AI agents call Step Functions workflows as tools. Let the agent decide when and what, and let a fixed, logged workflow decide how and in what order.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deterministic vs Generative: Who Should Hold the Pen?">
+<meta property="og:description" content="AWS now lets AI agents call Step Functions workflows as tools. Let the agent decide when and what, and let a fixed, logged workflow decide how and in what order.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-11-08-deterministic-vs-generative.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-11-08-deterministic-vs-generative.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%237A68F0' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../"><span class="mark" aria-hidden="true">TV</span>Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../portfolio/">Portfolio</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-11-08">8 November 2026</time> · Travis John Villanueva</p>
+<h1>Deterministic vs Generative: Who Should Hold the Pen?</h1>
+<p>There’s a quiet tension in every AI system I look at. One side is deterministic: the same input takes the same path every time, and every step is logged so you can see exactly what happened. The other side is generative: flexible, good at judgement, but you’re trusting it rather than verifying it.</p>
+<p>For a while it felt like you had to pick one. Build a rigid pipeline that can’t handle anything unexpected, or hand the whole job to an agent and hope.</p>
+<figure class="post-figure"><img src="../../images/deterministic-vs-generative.jpg" alt="AI agent robot waving a flag wanting to skip to WRITE; Step Functions signalman replies ‘You pick when, mate. I pick the order.’" loading="lazy"></figure>
+<h2>A release that splits the job</h2>
+<p>On 29 October, AWS made it possible to expose Step Functions workflows as tools for AI agents through Bedrock AgentCore Gateway. Step Functions is AWS’s workflow engine: you define steps in a fixed order (validate, approve, write), and it runs them with retries and a full history of every run. Now an agent can call that workflow like any other tool.</p>
+<p>The interesting part is the division of labour. The agent decides <strong>when</strong> to start the workflow and <strong>what</strong> input to send. The workflow decides <strong>how</strong> it runs and <strong>in what order</strong>. The agent can’t skip the approval step because it “has a good feeling”.</p>
+<h2>Why this matters</h2>
+<p>LLMs are great at reading a messy request and working out what someone wants. They’re not great at following the same procedure perfectly every single time. Workflows are the opposite. So let each do what it’s good at:</p>
+<ul>
+<li><strong>Generative for intent:</strong> understand the request, pick the right action, fill in the inputs.</li>
+<li><strong>Deterministic for consequence:</strong> anything that touches money, customer data or production tables runs through fixed, logged, rerunnable steps.</li>
+</ul>
+<p>It’s the same instinct behind idempotency. The parts that matter should behave the same on every run, and you should be able to prove what happened afterwards.</p>
+<h2>A few guardrails from the AWS docs</h2>
+<ul>
+<li>Pin the specific workflow in the tool configuration so the model can’t point it at a different one.</li>
+<li>Use Standard workflows if the agent needs to check or list runs, because those calls don’t work on Express workflows.</li>
+<li>Keep the gateway and the workflow in the same AWS Region, and remember that the tools share one permission boundary.</li>
+</ul>
+<h2>The accounting habit</h2>
+<p>Finance has run this way for decades. Anyone can raise a purchase request, but the approval chain is fixed, documented and auditable. Judgement sits at the front, while control sits in the process.</p>
+<h2>The takeaway</h2>
+<p>Don’t ask whether to trust the AI or the pipeline. Ask which decisions need judgement and which need a receipt. Let the agent hold the flag, and let the workflow hold the levers.</p>
+<p>Source: <a href="https://aws.amazon.com/about-aws/whats-new/2026/10/step-functions-workflows-ai-agent-tools/" target="_blank" rel="noopener">AWS announcement</a></p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a><a href="../">Blog</a><a href="../../portfolio/">Portfolio</a><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a><a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
