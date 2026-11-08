@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>When It Says 70%… | Travis John Villanueva</title>
+<meta name="description" content="A model saying it’s 70% sure is only useful if those calls come true about seven times in ten. Why calibration matters, and how to check it.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="When It Says 70%…">
+<meta property="og:description" content="A model saying it’s 70% sure is only useful if those calls come true about seven times in ten. Why calibration matters, and how to check it.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-11-08-when-it-says-70.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-11-08-when-it-says-70.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%237A68F0' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../"><span class="mark" aria-hidden="true">TV</span>Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../portfolio/">Portfolio</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-11-08">8 November 2026</time> · Travis John Villanueva</p>
+<h1>When It Says 70%…</h1>
+<p>A model, a forecast or a chatbot tells you it’s 70% sure. The useful question isn’t whether 70% sounds high. It’s whether, when it says 70%, the thing actually happens about seven times out of ten.</p>
+<p>That’s calibration. It sounds technical, but the habit isn’t.</p>
+<figure class="post-figure"><img src="../../images/calibration-reliability.png" alt="Reliability diagram of claimed confidence vs actual accuracy, model line below the perfect-calibration diagonal in the overconfident zone; illustrative data" loading="lazy"></figure>
+<p>Accuracy and ranking answer a different question: can this model put the more likely cases above the less likely ones? Plenty of models are good at that and still badly calibrated. They might say 90% when the real rate is closer to 60%, or sit on 70% when the event almost always happens. If you only check whether it picked the right label, you’ll miss that. If you then use the number to set a threshold, book a reserve or fire off an automatic yes, the miss starts to matter.</p>
+<h2>The weather version</h2>
+<p>If a forecast says there’s a 70% chance of rain, you don’t judge it on one Tuesday. You look at all the days it called 70%. If it rained on nearly every one of them, the number was too shy. If it almost never rained, the forecast was talking itself up. The label was confident, but the scoreboard wasn’t.</p>
+<h2>The NBA version</h2>
+<p>I think about the same check in my <a href="https://www.youtube.com/@noflightzone-h6p" target="_blank" rel="noopener">NoFlightZone</a> Spurs work. A win probability, or a score saying a lineup should work, is only a decision tool if the probabilities mean what they claim. If a matchup keeps printing 70% and the nights look more like a coin flip, you end up trusting the number more than the game.</p>
+<h2>Where it shows up in AI work</h2>
+<p>Large language models are fluent at sounding sure, but “I’m fairly confident” is not a calibrated probability. So collect those statements, log them next to whether the answer was correct, and review them later, the same way you would for any other model. Better still, check the work itself. Did it retrieve the right source? Does the answer tie out? A confident tone is not evidence.</p>
+<h2>The accounting version</h2>
+<p>From my finance days, this is a cousin of a provision, a forecast in a board pack, or a “likely to collect” figure. The number can look tidy to one decimal place and still be a guess wearing a suit. The test is the same: when we called something likely, how often did it actually come through?</p>
+<h2>What I actually do now</h2>
+<ol>
+<li><strong>Store the predicted probability and the outcome together.</strong> Without the log, there’s nothing to check.</li>
+<li><strong>Bucket similar probabilities and compare the stated rate with the observed rate.</strong> The proper name for this is a reliability diagram, but you can start with one bucket: everything that was called “about 70%”.</li>
+<li><strong>Keep ranking and acting separate.</strong> A model that’s useful for ordering cases can still be dangerous if you take the raw 70% and use it to auto-approve, auto-decline or book a number.</li>
+<li><strong>Treat an LLM’s verbal confidence as tone, not a number, until you’ve measured it.</strong></li>
+<li><strong>Wait until a bucket has enough cases to mean something.</strong> A handful of 70% calls is a small sample, not a verdict.</li>
+</ol>
+<p>None of this needs a new platform. It needs the humility to treat a confident number as a claim, then go and check the claim.</p>
+<p>Confidence is easy to print. Calibration is what makes the number honest.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a><a href="../">Blog</a><a href="../../portfolio/">Portfolio</a><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a><a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
