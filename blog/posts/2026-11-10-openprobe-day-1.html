@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build in Public, Day 1: Introducing OpenProbe | Travis John Villanueva</title>
+<meta name="description" content="OpenProbe is a working name for a recruitment screening tool I’m designing in public. Day 1 of the Build in Public series: the blueprint, three layers, and a planned first pilot.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Build in Public, Day 1: Introducing OpenProbe">
+<meta property="og:description" content="OpenProbe is a working name for a recruitment screening tool I’m designing in public. Day 1 of the Build in Public series: the blueprint, three layers, and a planned first pilot.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-11-10-openprobe-day-1.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-11-10-openprobe-day-1.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%237A68F0' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css?v=2">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../"><span class="mark" aria-hidden="true">TV</span>Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../portfolio/">Portfolio</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-11-10">10 November 2026</time> · Travis John Villanueva</p>
+<p class="tags"><a class="pill" href="../index.html#open-source">Open Source</a><span class="pill">Build in Public</span></p>
+<h1>Build in Public, Day 1: Introducing OpenProbe</h1>
+<p>OpenProbe is a working name for a recruitment screening tool I’m designing in public.</p>
+<p>The goal is to give applicants a straightforward way to show their knowledge, communication and judgement, while giving recruiters evidence they can inspect.</p>
+<p>It’s at the blueprint stage. I plan to build it publicly, share the decisions behind it and eventually release it as open source. This post is Day 1 of that series.</p>
+<figure class="post-figure"><img src="../../images/openprobe-page-1.png" alt="The OpenProbe blueprint overview" loading="lazy"></figure>
+<h2>The problem I want to work on</h2>
+<p>A resume summarises someone’s experience, and it’s written to persuade someone else to consider them for a role. It’s a good starting point, but it leaves important questions unanswered.</p>
+<p>How familiar is this person with the tools they list? Can they explain their work to someone outside their field? Do they know which tasks to hand to AI, and which AI outputs need checking?</p>
+<p>AI makes these questions more interesting. It can help an experienced applicant describe their work clearly. It can also help someone write convincing claims they can’t back up.</p>
+<p>I want OpenProbe to look at the experience and judgement behind an application through a short, practical screening process.</p>
+<p>Keeping that process simple matters. An assessment that asks for long essays or hours of unpaid work just adds another burden for applicants. It should give people a fair chance to show what they can do.</p>
+<p>The current design has three layers.</p>
+<h2>Layer 1: Checking the application</h2>
+<figure class="post-figure"><img src="../../images/openprobe-page-2.png" alt="Layer 1 application check" loading="lazy"></figure>
+<p>The process starts with a resume and a job description.</p>
+<p>AI would line up the candidate’s claims against the role requirements and highlight statements that need clarifying. Examples include inconsistent dates, unlikely experience timelines, or responsibilities that clash with other parts of the application.</p>
+<p>Every flag should point to the exact wording and explain the concern.</p>
+<p>One experimental idea is to plant a few deliberate inconsistencies in a job description and see whether applicants repeat them as their own experience. The hypothesis is that careless copying might give itself away through one specific contradictory claim.</p>
+<p>That idea needs testing. Someone who avoids the planted inconsistency hasn’t automatically shown expertise. A flagged claim might simply need clarifying, and it doesn’t prove anyone made something up on purpose.</p>
+<p>This layer helps a reviewer find questions worth asking. Passing a consistency check doesn’t prove a resume is genuine.</p>
+<h2>Layer 2: Everyday familiarity through a quick quiz</h2>
+<figure class="post-figure"><img src="../../images/openprobe-page-3.png" alt="Layer 2 timed role quiz" loading="lazy"></figure>
+<p>The second layer is a timed session of ten short questions.</p>
+<p>The questions come from a standard bank for the role and test everyday recognition: what a tool does, which tools usually work together, or which action fits a familiar situation.</p>
+<p>A data role might include recognising Airflow as a workflow orchestration tool, or knowing how dbt and BigQuery fit together. Other roles would get questions about their own work.</p>
+<p>The candidate picks an answer and moves on. The questions should be clearly worded and every option should be believable.</p>
+<p>Timing adds context to whether an answer was right. It can’t prove nobody got outside help, and a session interruption doesn’t automatically mean cheating.</p>
+<p>There’s also an experimental group-influence element.</p>
+<p>On selected questions, the candidate answers privately first. Then they see suggestions from a simulated group, and they’re told the group is simulated. Sometimes the group favours the right answer and sometimes a wrong one. The candidate can keep their answer or change it.</p>
+<p>That shows whether they held a correct answer, dropped one, or fixed an earlier mistake.</p>
+<p>These are behaviours we can observe. Whether they’re useful evidence for hiring is something the pilot needs to find out, because sticking firmly to an answer isn’t automatically good judgement.</p>
+<h2>Layer 3: Communication and AI delegation</h2>
+<figure class="post-figure"><img src="../../images/openprobe-page-4.png" alt="Layer 3 workplace simulation" loading="lazy"></figure>
+<p>The third layer is a workplace simulation built from short interactions.</p>
+<p>The first activity is about passing knowledge on to a simulated colleague.</p>
+<p>The candidate gets the underlying facts and then explains them to someone with a different level of subject knowledge. The challenge is to be accurate and clear at the same time.</p>
+<p><em>Illustrative example:</em> the briefing says a dashboard reports $120k in sales for the month before refunds, while the finance report shows $100k after $20k of refunds. The simulated colleague asks why the figures differ and which one they should use.</p>
+<p>The candidate replies in short messages. Follow-up questions and misunderstandings give them chances to clarify.</p>
+<p>We’d look at whether they keep the facts right, pitch the language at the right level, and adjust when the first explanation doesn’t land.</p>
+<p>The second activity uses a task board to look at AI delegation and how the work is sequenced.</p>
+<p>The candidate gets a small set of role-specific tasks, a goal and a deadline. They decide which tasks to do themselves, which to hand to AI, and which AI outputs need review.</p>
+<p>They can also set dependencies and mark work that can run in parallel.</p>
+<p>The assessment considers whether the plan is workable and includes the right checks. More than one arrangement can be sensible.</p>
+<p>This is where using AI well becomes part of the work itself. A candidate might let AI write a first draft while keeping responsibility for checking the claims and approving what goes out.</p>
+<p>Scenarios would vary by role. An accounting scenario might involve a reconciliation and an explanation for a stakeholder. A marketing scenario might involve a campaign update. The scoring guide would reflect the responsibilities being assessed.</p>
+<h2>An evidence scorecard</h2>
+<figure class="post-figure"><img src="../../images/openprobe-page-5.png" alt="Evidence scorecard and first pilot" loading="lazy"></figure>
+<p>The output is a scorecard backed by the candidate’s actual responses and actions.</p>
+<p>A reviewer should be able to open the answer behind a technical familiarity score, the conversation behind a communication rating, and the task plan behind an AI delegation assessment.</p>
+<p>Candidates should also get feedback on what they showed and where the evidence was thin.</p>
+<p>I’m considering short pattern-recognition exercises as an optional extra. They would be reported separately and never presented as an IQ score.</p>
+<p>Over time, reusable assessment evidence could help candidates be considered for other suitable roles. That would need to keep the context of the original task, and it would be the candidate’s choice whether their information is kept and shared.</p>
+<h2>The first pilot</h2>
+<p>The proposed starting point is one data role, a small question bank and one workplace scenario.</p>
+<p>Independent human reviewers would assess the same responses, and then their judgements would be compared with the AI-generated scores. I also want to know how long the experience takes, where candidates get stuck in the interface, and whether the feedback is useful.</p>
+<p>Every activity has to earn its place. If a feature adds effort without producing useful evidence, that’s a reason to change it or remove it.</p>
+<p>The recruiter stays responsible for interpreting the evidence and making the hiring decision.</p>
+<h2>Why share it this early</h2>
+<p>These decisions deserve scrutiny before they turn into product features. I’ll share progress, and what I change along the way, as the pilot takes shape.</p>
+<p>If you recruit, manage a team or apply for roles, I’d love your view: what would make this experience useful enough to be worth a candidate’s time?</p>
+<p><a href="../../files/openprobe-blueprint-v0.1.pdf" target="_blank" rel="noopener">Download the OpenProbe blueprint (PDF)</a>. Follow along or open an issue on <a href="https://github.com/TravisJohn/openprobe" target="_blank" rel="noopener">GitHub</a>.</p>
+<p><em>Outside my day role I also build NBA analytics on <a href="https://youtube.com/@noflightzone-h6p" target="_blank" rel="noopener">NoFlightZone</a>. More posts are at <a href="../../">travisjohn.github.io</a>.</em></p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a><a href="../">Blog</a><a href="../../portfolio/">Portfolio</a><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a><a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
