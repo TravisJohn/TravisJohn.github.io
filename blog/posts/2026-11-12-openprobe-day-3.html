@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build in Public, Day 3: From Brief to Hiring Project | Travis John Villanueva</title>
+<meta name="description" content="On Day 3 of building OpenProbe in public, I added the step before the recruiter and applicant seats: turning a client brief into a hiring project, with requirements that stay private.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Build in Public, Day 3: From Brief to Hiring Project">
+<meta property="og:description" content="On Day 3 of building OpenProbe in public, I added the step before the recruiter and applicant seats: turning a client brief into a hiring project, with requirements that stay private.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-11-12-openprobe-day-3.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-11-12-openprobe-day-3.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%237A68F0' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css?v=2">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../"><span class="mark" aria-hidden="true">TV</span>Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../portfolio/">Portfolio</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-11-12">12 November 2026</time> · Travis John Villanueva</p>
+<p class="tags"><a class="pill" href="../index.html#open-source">Open Source</a><span class="pill">Build in Public</span></p>
+<h1>Build in Public, Day 3: From Brief to Hiring Project</h1>
+<p>Hiring is broken on both sides of the table, and I want to fix it in the open.</p>
+<blockquote>
+<p>“It’s impossible to interview them all!” (a recruiter)</p>
+<p>“1,000 résumés sent, 10 interviews, no feedback.” (an applicant)</p>
+</blockquote>
+<p>It’s the same process, with two very different frustrations.</p>
+<h2>The idea</h2>
+<p>My rule is no generative AI unless it’s genuinely needed. With that in mind, what if:</p>
+<ul>
+<li><strong>the recruiter posts just the role, with no laundry list of tech stacks?</strong></li>
+<li><strong>we measure an applicant’s potential, not just their keywords?</strong></li>
+<li><strong>applicants are judged across several touchpoints, not one interview?</strong></li>
+<li><strong>hiring feels like a game, run as an online competition?</strong></li>
+<li><strong>applicants are dropped into a simulated, scenario-based environment to show they can actually do the role?</strong> This is where AI earns its place.</li>
+<li><strong>every applicant walks away with feedback, so their time is never wasted?</strong></li>
+</ul>
+<h2>Day 3: from brief to hiring project</h2>
+<p>On <a href="2026-11-11-openprobe-day-2.html">Day 2</a> I set up the seats for recruiters and applicants. Today I built the step before that, where the hiring company hands over its job requirements and the recruiter turns them into a <strong>project</strong>. A project is a self-contained space that holds everything about that role.</p>
+<figure class="post-figure"><img src="../../images/openprobe-day-3-workflow.png" alt="OpenProbe workflow diagram titled From brief to hiring project: four steps from client brief, through private requirements and a draft advertisement, to the recruiter dashboard, then edit project or advertise." loading="lazy"></figure>
+<ol>
+<li><strong>Client brief.</strong> Upload documents or paste the request.</li>
+<li><strong>Private requirements.</strong> Requirement statements are extracted, and the recruiter reviews them. They never appear in the ad.</li>
+<li><strong>Draft advertisement.</strong> Just the role title and an invitation, and the recruiter approves it.</li>
+<li><strong>Recruiter dashboard.</strong> The active project is filed under Client, then Role.</li>
+</ol>
+<p>From the dashboard, <strong>Edit project</strong> loops back to the brief and review, so a changed client request doesn’t mean starting over. <strong>Advertise</strong> shows job-platform placeholders. For now the recruiter can copy a preview link or download the advertisement.</p>
+<h2>Why keep the requirements private?</h2>
+<p>Applicants describe the role in their own words, through their proudest work, a typical week and a hard problem. The private requirements become the yardstick. We compare what someone actually does with what the client needs, instead of checking whether they repeated the ad back.</p>
+<h2>Status</h2>
+<ul>
+<li><strong>This is a proof of concept.</strong></li>
+<li><strong>The agents are simulated.</strong></li>
+<li><strong>Platform publishing is a placeholder.</strong></li>
+<li><strong>Requirements stay private.</strong></li>
+<li><strong>Preview links are local, and advertisement files can be shared.</strong></li>
+</ul>
+<h2>Get involved</h2>
+<p>OpenProbe is open source under the MIT licence. Explore the <a href="https://github.com/TravisJohn/openprobe" target="_blank" rel="noopener">repo on GitHub</a>, open an issue or tell me where this would break in a real agency.</p>
+<p><strong>Recruiters and hiring managers:</strong> if the requirements stay hidden, what’s the one thing an ad still has to say for good people to apply?</p>
+<p><em>Outside my day role, I build NBA models for <a href="https://youtube.com/@noflightzone-h6p" target="_blank" rel="noopener">NoFlightZone</a>. More posts are at <a href="../../">travisjohn.github.io</a>.</em></p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a><a href="../">Blog</a><a href="../../portfolio/">Portfolio</a><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a><a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
