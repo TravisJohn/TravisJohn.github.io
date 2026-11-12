@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build in Public, Day 2: OpenProbe Arena Gets Its Scaffolding | Travis John Villanueva</title>
+<meta name="description" content="I’ve built the scaffolding for both sides of OpenProbe Arena: the recruiter seat, the applicant’s 90-minute session, and a question about when self-ratings should appear.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Build in Public, Day 2: OpenProbe Arena Gets Its Scaffolding">
+<meta property="og:description" content="I’ve built the scaffolding for both sides of OpenProbe Arena: the recruiter seat, the applicant’s 90-minute session, and a question about when self-ratings should appear.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-11-11-openprobe-day-2.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-11-11-openprobe-day-2.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%237A68F0' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css?v=2">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../"><span class="mark" aria-hidden="true">TV</span>Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../portfolio/">Portfolio</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-11-11">11 November 2026</time> · Travis John Villanueva</p>
+<p class="tags"><a class="pill" href="../index.html#open-source">Open Source</a><span class="pill">Build in Public</span></p>
+<h1>Build in Public, Day 2: OpenProbe Arena Gets Its Scaffolding</h1>
+<p><em>Category: Open Source · Series: Building OpenProbe in public · All companies, applicants and numbers shown are fictional demo data.</em></p>
+<p>Two applicants. One rates themselves 32 out of 100. The other says 91. On the reasoning rubric, both score 10 out of 12.</p>
+<p>That’s fictional demo data, but it’s exactly the gap I want OpenProbe to make visible. Confidence, salary expectations and polished CVs are easy to see. How someone actually reasons through a problem is much harder to see.</p>
+<p>On <a href="2026-11-10-openprobe-day-1.html">Day 1</a> I shared the blueprint. Today I built the scaffolding for both sides of the app: the recruiter seat and the applicant seat.</p>
+<h2>One change since Day 1</h2>
+<p>I’ve stopped showing the full job description first. The recruiter posts the job role and nothing else. Before seeing any detail, the applicant describes the role in their own words and answers open questions about their work. This makes it harder to mirror the job ad back, with or without AI.</p>
+<h2>The recruiter seat</h2>
+<!-- IMAGE 1: hiring clients and open roles; file images/openprobe-day2-1.png -->
+<p>A recruiter starts by choosing a hiring client. Each client has its own open roles, with applicant counts, submission counts and a deadline. Each role keeps its own draft, deadline and review state.</p>
+<!-- IMAGE 2: applicant landscape scatter plot; file images/openprobe-day2-2.png -->
+<p>Opening a role shows the <strong>applicant landscape</strong>. Every applicant is a point, plotted by self-rated expertise against expected annual salary. Selecting a point opens that applicant’s evidence. The demo Data Engineer cohort has 150 fictional applicants.</p>
+<!-- IMAGE 3: applicant roster with IDs; file images/openprobe-day2-3.png -->
+<p>The roster lists every applicant by ID, such as OP-007, never by name.</p>
+<h2>One deadline for everyone</h2>
+<p>The recruiter sets a single submission deadline in Sydney time. Completed submissions open together at the cutoff, and drafts close at the same moment. Applying early doesn’t buy an earlier or longer look.</p>
+<h2>The applicant seat: one 90-minute session</h2>
+<!-- IMAGE 4: session plan with five milestones; file images/openprobe-day2-4.png -->
+<p>The applicant goes through five milestones in one sitting:</p>
+<ol>
+<li><strong>Positioning (5 min).</strong> Place your expertise and expected salary on two sliders.</li>
+<li><strong>Work stories (25 min).</strong> Describe the role in your own words, then answer prompts about your proudest work, a typical week, a difficult problem, how you’d explain your work and how you work with AI. Future interests are optional and kept out of scoring.</li>
+<li><strong>Deep dive (25 min).</strong> Choose your first move in a live reporting incident and explain what evidence would change your next step.</li>
+<li><strong>Lightning round (15 min).</strong> Three quick timed decisions.</li>
+<li><strong>Debate room (20 min).</strong> Take a position, defend it and answer a challenge from a scripted opponent.</li>
+</ol>
+<!-- IMAGE 5: positioning sliders for expertise and salary; file images/openprobe-day2-5.png -->
+<!-- IMAGE 6: work stories prompts; file images/openprobe-day2-6.png -->
+<p>The work stories stage also builds a <strong>narrative map</strong>. It compares the applicant’s own role definition with each answer using simple word-overlap similarity. It shows shared vocabulary as a guide for the reviewer, not as a score.</p>
+<h2>Fairness by design</h2>
+<ul>
+<li><strong>Blind review.</strong> Applicants are IDs on the scatter plot, the roster, the evidence comparison and the shortlist. Names appear only after the recruiter confirms the final selection.</li>
+<li><strong>One rubric for everyone.</strong> A human reviewer scores diagnosis, verification, trade-offs and communication from 0 to 3 each, out of 12.</li>
+<li><strong>Some signals stay out of the score.</strong> Self-rating, salary, word overlap and game points sit outside the 12-point rubric.</li>
+<li><strong>Honest about limits.</strong> The deep dive and debate ask for independent reasoning without AI. The prototype records answers and elapsed time, but it can’t verify who wrote them, and it says so.</li>
+</ul>
+<h2>How it’s tested</h2>
+<p>The model has 11 automated tests. They check that the five milestones add up to exactly 90 minutes and that the Sydney cutoff handles daylight saving. They also check that timers expire once without losing a draft, and that names stay hidden until a confirmed final selection, even after a reload. A separate workflow check runs the full path from application to name reveal and reset.</p>
+<h2>Where it’s at</h2>
+<p>It’s a browser-only prototype with fictional data. There’s no AI scoring, backend, shared candidate database or ATS integration yet. Live multi-user rounds and messaging are future work.</p>
+<h2>The question I’m stuck on</h2>
+<p>Right now, recruiters see self-rated expertise and expected salary upfront, on the scatter plot. Should they see those <strong>before</strong> or <strong>after</strong> they score the reasoning? Seeing them first gives context. Seeing them later might reduce anchoring.</p>
+<p>If you hire or apply for technical roles, I’d love your view. Comment on LinkedIn or open an issue on <a href="https://github.com/TravisJohn/openprobe" target="_blank" rel="noopener">GitHub</a>.</p>
+<p><em>Outside my day role I also build NBA analytics on <a href="https://youtube.com/@noflightzone-h6p" target="_blank" rel="noopener">NoFlightZone</a>. More posts are at <a href="../../">travisjohn.github.io</a>.</em></p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a><a href="../">Blog</a><a href="../../portfolio/">Portfolio</a><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a><a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
