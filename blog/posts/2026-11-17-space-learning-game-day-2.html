@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build in Public, Day 2: Giving the Drone a Dashboard | Travis John Villanueva</title>
+<meta name="description" content="Day 2 of the space learning game, now called DRIFT: a ship dashboard, a training console, and a walkthrough of prompting for the player’s camera.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Build in Public, Day 2: Giving the Drone a Dashboard">
+<meta property="og:description" content="Day 2 of the space learning game, now called DRIFT: a ship dashboard, a training console, and a walkthrough of prompting for the player’s camera.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-11-17-space-learning-game-day-2.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-11-17-space-learning-game-day-2.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%237A68F0' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css?v=2">
+<style>
+.post-figure video{display:block;width:100%;max-width:100%;height:auto;border-radius:14px;border:1px solid var(--line2);}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../"><span class="mark" aria-hidden="true">TV</span>Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../portfolio/">Portfolio</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-11-17">17 November 2026</time> · Travis John Villanueva</p>
+<p class="tags"><a class="pill" href="../index.html#open-source">Open Source</a><span class="pill">Build in Public</span></p>
+<h1>Build in Public, Day 2: Giving the Drone a Dashboard</h1>
+<p>On <a href="2026-11-16-space-learning-game-day-1.html">Day 1</a> I shared the idea: a space game where learning feels like playing. The game now has a name, <strong>DRIFT</strong>. Your consciousness has been uploaded into a small drone, the crew is asleep, and somebody has to do the rounds on the ship.</p>
+<h2>Watch the demo</h2>
+<figure class="post-figure"><video controls muted playsinline preload="metadata" poster="../../images/drift-day-2-poster.jpg" width="100%"><source src="../../files/drift-day-2-demo.mp4" type="video/mp4"></video><figcaption>The 80-second walkthrough covers the ship, the dashboard, the training console, setting a course and the exterior view.</figcaption></figure>
+<h2>What’s new: the ship dashboard</h2>
+<p>When the drone reaches the glowing wireframe on the bridge floor, the player can open the <strong>Ship Dashboard</strong>. It has three parts:</p>
+<ul>
+<li><strong>Journey and systems</strong> on the left: status, location, course, autopilot, reactor, cryo pods, life support and hull.</li>
+<li><strong>A 3D wireframe of the ship</strong> in the middle. When you pick a compartment, it lights up.</li>
+<li><strong>Compartments and training</strong> on the right: the bridge, main corridor, science lab, cargo bay, cryo bay and engineering, each with a short status note. There’s also a <strong>training console</strong>.</li>
+</ul>
+<figure class="post-figure"><img src="../../images/drift-day-2-dashboard.png" alt="Ship dashboard titled Ship Dashboard · RV Drift, with Journey and Systems status on the left, a 3D wireframe of the ship in the centre with one compartment highlighted, and a Compartments and Training list on the right with Bridge selected." loading="lazy"></figure>
+<p>The training console is a placeholder for now. It’s set up for an AWS Machine Learning Engineer certification drill, and a real question bank will plug in later. For now the player can log a session, and the ship’s voice replies: “Logged. One drill closer to that certification of yours.”</p>
+<p>From the helm, the player can also set a course to one of two destinations, Aurelia or Cinder, and the autopilot takes over.</p>
+<h2>What I actually learned: controlling the perspective</h2>
+<p>Honestly, the dashboard isn’t anything groundbreaking. The real lesson today was learning how to prompt for the <strong>player’s perspective</strong>:</p>
+<ul>
+<li><strong>A third-person camera that follows the drone through the corridors and onto the bridge.</strong></li>
+<li><strong>Free look and movement controls,</strong> so you can steer around the ship.</li>
+<li><strong>A switch to an exterior view while the ship is in flight, and back inside again.</strong></li>
+</ul>
+<figure class="post-figure"><img src="../../images/drift-day-2-corridor.png" alt="Third-person view of a small grey drone hovering in the ship’s main corridor, with lit wall panels receding toward a doorway at the far end." loading="lazy"></figure>
+<figure class="post-figure"><img src="../../images/drift-day-2-exterior.png" alt="The blocky dark hull of the ship seen from outside against a starfield, with a Return Inside control and a course readout toward Cinder at 5 percent." loading="lazy"></figure>
+<p>This is well outside my comfort zone. It’s stretching what I thought was possible when building an AI-assisted solution.</p>
+<h2>Status</h2>
+<ul>
+<li><strong>Explore the ship, open the dashboard, log a training session and set a course:</strong> ✅ working</li>
+<li><strong>A real question bank for the training console:</strong> not yet</li>
+<li><strong>The camera can still clip through the ceiling when it swings around, so it needs polish</strong></li>
+</ul>
+<h2>Get involved</h2>
+<p>I’m planning to open source DRIFT. If you’re interested, send me a DM on <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a>.</p>
+<p>And if you’re into NBA analytics, come say hi on my YouTube channel, <a href="https://youtube.com/@noflightzone-h6p" target="_blank" rel="noopener">NoFlightZone</a>.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a><a href="../">Blog</a><a href="../../portfolio/">Portfolio</a><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a><a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
