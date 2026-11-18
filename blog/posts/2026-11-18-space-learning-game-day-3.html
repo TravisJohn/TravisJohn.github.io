@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build in Public, Day 3: Swapping Models and Branching for Experiments | Travis John Villanueva</title>
+<meta name="description" content="Day 3 of DRIFT: a new freighter skin, a new drone skin, a flight limit with a beeping beacon, and two lessons on swapping AI models and branching for experiments.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Build in Public, Day 3: Swapping Models and Branching for Experiments">
+<meta property="og:description" content="Day 3 of DRIFT: a new freighter skin, a new drone skin, a flight limit with a beeping beacon, and two lessons on swapping AI models and branching for experiments.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-11-18-space-learning-game-day-3.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-11-18-space-learning-game-day-3.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%237A68F0' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css?v=2">
+<style>
+.post-figure video{display:block;width:100%;max-width:100%;height:auto;border-radius:14px;border:1px solid var(--line2);}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../"><span class="mark" aria-hidden="true">TV</span>Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../portfolio/">Portfolio</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-11-18">18 November 2026</time> · Travis John Villanueva</p>
+<p class="tags"><a class="pill" href="../index.html#open-source">Open Source</a><span class="pill">Build in Public</span></p>
+<h1>Build in Public, Day 3: Swapping Models and Branching for Experiments</h1>
+<p>Here’s a quick update on DRIFT, my “learning feels like playing” space game. On <a href="2026-11-17-space-learning-game-day-2.html">Day 2</a> the drone got a ship dashboard. Today the ship and the drone both got a makeover, and I picked up two lessons about building with AI.</p>
+<h2>Watch the demo</h2>
+<figure class="post-figure"><video controls muted playsinline preload="metadata" poster="../../images/drift-day-3-poster.jpg" width="100%"><source src="../../files/drift-day-3-demo.mp4" type="video/mp4"></video><figcaption>The 90-second walkthrough shows the new ship and drone skins and the flight limit.</figcaption></figure>
+<h2>What’s new</h2>
+<p><strong>A new ship skin.</strong> The RV Drift is now a plated, lived-in freighter with lit windows, a radar dish and glowing engines.</p>
+<figure class="post-figure"><img src="../../images/drift-day-3-freighter.png" alt="The RV Drift freighter seen from outside against a starfield: a plated grey hull with lit windows and a radar dish, with a Return Inside prompt at the bottom." loading="lazy"></figure>
+<p><strong>A new drone skin.</strong> The drone has a blinking eye, tilting thrusters and an antenna beacon.</p>
+<figure class="post-figure"><img src="../../images/drift-day-3-drone.png" alt="The new drone skin parked on the ship’s bridge in front of the command deck consoles." loading="lazy"></figure>
+<p><strong>A flight limit.</strong> There’s now a limit on how far the drone can fly from the ship. If you stray too far, its antenna glows red and starts beeping, and the beeping gets faster the closer you get to the edge.</p>
+<figure class="post-figure"><img src="../../images/drift-day-3-boundary.png" alt="The small drone floating in open space beside the ship’s hull, with a faint red antenna beacon and a cruising-to-Cinder readout in the top corner." loading="lazy"></figure>
+<h2>What I actually learned</h2>
+<h3>1. Repeatability across models</h3>
+<p>I started DRIFT with one Claude model and switched to another today. I wanted to see whether a different model could pick up the project and keep building it the same way.</p>
+<p>It could, because the plan, the architecture and the build log were all written down. The new model didn’t need to guess what I meant. It read the same documents and carried on.</p>
+<h3>2. Branching for experiments</h3>
+<p>Every working version now gets a checkpoint, and every wild idea gets its own branch. If an experiment flops, I throw the branch away and the game is still fine.</p>
+<p>That makes it much easier to say “let’s just try it”.</p>
+<h2>Status</h2>
+<ul>
+<li><strong>Fly the drone out through a window, see the new ship from the outside, and hear the alarm when you push the limit:</strong> ✅ working</li>
+<li><strong>The new skins stay on an experiment branch until I’ve played them properly</strong></li>
+</ul>
+<h2>Get involved</h2>
+<p>I’m planning to open source DRIFT. If you’re interested, send me a DM on <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a>.</p>
+<p>And if you’re into NBA analytics, come say hi on my YouTube channel, <a href="https://youtube.com/@noflightzone-h6p" target="_blank" rel="noopener">NoFlightZone</a>.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a><a href="../">Blog</a><a href="../../portfolio/">Portfolio</a><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a><a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
