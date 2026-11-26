@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build in Public, Day 5: Warp Drive, and a Stealth Mission I Didn’t Think I Could Build | Travis John Villanueva</title>
+<meta name="description" content="Day 5 of DRIFT: the ship learns to warp to Vesper Station, a dark abandoned relay where you steal two energy cells from patrol drones using light seeds, and a lesson on not assuming AI can’t do it.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Build in Public, Day 5: Warp Drive, and a Stealth Mission I Didn’t Think I Could Build">
+<meta property="og:description" content="Day 5 of DRIFT: the ship learns to warp to Vesper Station, a dark abandoned relay where you steal two energy cells from patrol drones using light seeds, and a lesson on not assuming AI can’t do it.">
+<meta property="og:url" content="https://travisjohn.github.io/blog/posts/2026-11-20-space-learning-game-day-5.html">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="canonical" href="https://travisjohn.github.io/blog/posts/2026-11-20-space-learning-game-day-5.html">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230a0a0c'/><text x='50' y='66' font-size='46' text-anchor='middle' fill='%237A68F0' font-family='sans-serif' font-weight='700'>TV</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css?v=2">
+<style>
+.post-figure video{display:block;width:100%;max-width:100%;height:auto;border-radius:14px;border:1px solid var(--line2);}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-inner">
+<a class="brand" href="../../"><span class="mark" aria-hidden="true">TV</span>Travis John Villanueva</a>
+<nav aria-label="Primary"><ul>
+<li><a href="../../#about">About</a></li><li><a href="../../#experience">Experience</a></li><li><a href="../../#projects">Projects</a></li><li><a href="../../portfolio/">Portfolio</a></li><li><a href="../../#skills">Skills</a></li><li><a href="../../#education">Education</a></li><li><a href="../">Blog</a></li><li><a href="../../#contact" class="btn-sm">Contact</a></li>
+</ul></nav></div></header>
+<main id="main">
+<section><div class="wrap prose">
+<a class="backlink" href="../">← All posts</a>
+<p class="post-meta"><time datetime="2026-11-20">20 November 2026</time> · Travis John Villanueva</p>
+<p class="tags"><a class="pill" href="../index.html#open-source">Open Source</a><span class="pill">Build in Public</span></p>
+<h1>Build in Public, Day 5: Warp Drive, and a Stealth Mission I Didn’t Think I Could Build</h1>
+<p>Here’s a quick update on DRIFT, my quiet space game. You’re a small maintenance drone looking after a research ship while the crew sleeps in cryo. On <a href="2026-11-19-space-learning-game-day-4.html">Day 4</a> the ship got a dogfight you can fly. This time it learned to warp.</p>
+<h2>Watch the demo</h2>
+<figure class="post-figure"><video controls muted playsinline preload="metadata" poster="../../images/drift-day-5-poster.jpg" width="100%"><source src="../../files/drift-day-5-demo.mp4" type="video/mp4"></video><figcaption>The 157-second walkthrough shows the ship warping to Vesper Station and the stealth mission on board.</figcaption></figure>
+<h2>The ship can now warp</h2>
+<p>Set a course at the command deck and the ship’s voice comes over the cabin speakers:</p>
+<blockquote><p>“Preparing for warp drive.”</p></blockquote>
+<p>Then streaks of starlight pour past every window. The trip takes about a minute, and you can float around the ship while you travel. It ends at a new destination: <strong>Vesper Station</strong>, an abandoned relay with a broken habitat ring and a lone distress beacon.</p>
+<figure class="post-figure"><img src="../../images/drift-day-5-warp.png" alt="Starlight streaking past the ship’s windows during warp, with the command deck panels either side showing the journey to Vesper Station." loading="lazy"></figure>
+<h2>Vesper Station has a blackout</h2>
+<p>The station is dark. Your drone’s lamp is the only light, and patrol drones sweep the corridors with sight cones.</p>
+<ul>
+<li><strong>The goal:</strong> pull two energy cells from their sockets. Each one takes ten seconds without interruption.</li>
+<li><strong>The risk:</strong> if a guard spots you, it’s <strong>RED ALERT</strong> and you’re back at the airlock.</li>
+<li><strong>The tool:</strong> to see where you’re going, you drop small light seeds that glow for 15 seconds, unless a guard flies over one and snuffs it out.</li>
+</ul>
+<figure class="post-figure"><img src="../../images/drift-day-5-stealth.png" alt="The drone’s lamp lighting a dark service passage on Vesper Station, with the Salvage Order panel showing 0 of 2 energy cells." loading="lazy"></figure>
+<figure class="post-figure"><img src="../../images/drift-day-5-cells.png" alt="The drone searching the reserve stores for an energy cell, with a gold socket on the wall." loading="lazy"></figure>
+<h2>The honest part</h2>
+<p>I didn’t learn anything new building this. No new language, no new framework.</p>
+<p>What changed was what I thought was possible. A stealth mission with light that stops at walls, guards whose vision gets cut off by bulkheads, and its own synth soundtrack felt way past what I could do. So I described what I wanted, playtested it, said what felt wrong, and kept going.</p>
+<p><strong>The skill wasn’t coding. It was refusing to accept “that’s probably too much for AI” before I’d actually tried.</strong></p>
+<h2>Status</h2>
+<p>The stealth mission is a standalone prototype for now. The next step is bringing it into the 3D ship, so you can warp to Vesper and actually dock.</p>
+<h2>Over to you</h2>
+<p>What have you assumed AI couldn’t do for you, without testing it?</p>
+<p>DRIFT is heading towards open source. If you’d like to follow along or get involved, DM me on <a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a>.</p>
+</div></section>
+</main>
+<footer><div class="wrap"><nav aria-label="Footer"><a href="../../">Home</a><a href="../">Blog</a><a href="../../portfolio/">Portfolio</a><a href="https://www.linkedin.com/in/travis-john-v-47815b55" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/TravisJohn" target="_blank" rel="noopener">GitHub</a><a href="mailto:vtravisjohn@yahoo.com">Email</a></nav><p>© <span id="y">2026</span> Travis John Villanueva · Sydney NSW</p></div></footer>
+<script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body></html>
